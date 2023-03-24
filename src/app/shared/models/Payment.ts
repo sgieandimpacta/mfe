@@ -6,8 +6,7 @@ export interface Payment {
   recorrencia: string;
   data_pagamento: string;
   valor: number;
-  id_status: number;
-  descricao_status: string;
+  status: string;
   data_cadastro: string;
   codigo_boleto?: string;
   codigo_barras?: string;

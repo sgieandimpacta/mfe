@@ -1,4 +1,40 @@
-<h5>Payments</h5>
-<ul *ngFor="let payment of payments">
-  <li>{{ payment.id }} - {{ payment.valor }}</li>
-</ul>
+<div class="container">
+  <h3 class="mt-5">Lista de Pagamentos</h3>
+  <div class="card p-4 mt-3">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>valor</th>
+          <th>empresa</th>
+          <th>tipo</th>
+          <th>categoria</th>
+          <th>recorrência</th>
+          <th>data pgto</th>
+          <th>data cadastro</th>
+          <th>status</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="payments.length; else naoExistemPagamentos">
+        <tr *ngFor="let payment of payments">
+          <td>{{ payment.id }}</td>
+          <td>{{ payment.valor | currency : "BRL" }}</td>
+          <td>{{ payment.empresa }}</td>
+          <td>{{ payment.tipo }}</td>
+          <td>{{ payment.categoria }}</td>
+          <td>{{ payment.recorrencia }}</td>
+          <td>{{ payment.data_pagamento | date : "dd/MM/yyyy" }}</td>
+          <td>{{ payment.data_cadastro | date : "dd/MM/yyyy" }}</td>
+          <td>{{ payment.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ng-template #naoExistemPagamentos
+  ><tbody>
+    <tr class="text-center">
+      <td colspan="9">Não existem pagamentos cadastrados.</td>
+    </tr>
+  </tbody></ng-template
+>
