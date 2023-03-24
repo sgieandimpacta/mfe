@@ -1,1 +1,4 @@
 <h5>Payments</h5>
+<ul *ngFor="let payment of payments">
+  <li>{{ payment.id }} - {{ payment.valor }}</li>
+</ul>
