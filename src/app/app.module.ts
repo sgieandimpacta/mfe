@@ -6,8 +6,13 @@ import { AppComponent } from './app.component';
 import { PaymentComponent } from './components/payments/payment.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreatePaymentComponent } from './components/payments/create/create-payment.component';
+import { ListPaymentComponent } from './components/payments/list/list-payment.component';
 
-const components = [PaymentComponent, CreatePaymentComponent];
+const components = [
+  PaymentComponent,
+  CreatePaymentComponent,
+  ListPaymentComponent,
+];
 @NgModule({
   declarations: [AppComponent, components],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
