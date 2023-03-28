@@ -7,8 +7,9 @@ import { PaymentComponent } from './components/payments/payment.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreatePaymentComponent } from './components/payments/create/create-payment.component';
 
+const components = [PaymentComponent, CreatePaymentComponent];
 @NgModule({
-  declarations: [AppComponent, PaymentComponent, CreatePaymentComponent],
+  declarations: [AppComponent, components],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
