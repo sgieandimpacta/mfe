@@ -1,1 +1,176 @@
-<p>create-payment works!</p>
+<div class="container">
+  <div class="card p-4 mt-5">
+    <form
+      [formGroup]="paymentForm"
+      (ngSubmit)="cadastrarPagamento()"
+      #formDir="ngForm"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Cadastrar Pagamento</h3>
+        </div>
+        <div class="modal-body mt-3">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="empresa" class="form-label">empresa</label>
+              <select
+                id="empresa"
+                class="form-select"
+                formControlName="empresa"
+              >
+                <option [value]="option" *ngFor="let option of OPTIONS">
+                  {{ option }}
+                </option>
+              </select>
+              <div
+                *ngIf="empresa.invalid && formDir.submitted"
+                class="invalid-feedback"
+              >
+                Por favor, selecione um empresa.
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="dataPagamento" class="form-label"
+                >data de pagamento</label
+              >
+              <div class="row">
+                <div class="col-xs-12">
+                  <input
+                    type="text"
+                    placeholder="Selecione uma data"
+                    class="form-control"
+                    bsDatepicker
+                    formControlName="dataPagamento"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="inputValor" class="form-label">valor</label>
+              <div class="has-validation">
+                <input
+                  currencyMask
+                  type="text"
+                  class="form-control"
+                  id="inputValor"
+                  formControlName="valor"
+                  [options]="{
+                    prefix: 'R$ ',
+                    thousands: '.',
+                    decimal: ','
+                  }"
+                />
+                <div
+                  *ngIf="valor.invalid && formDir.submitted"
+                  class="invalid-feedback"
+                >
+                  Por favor, adicione um valor.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="categoria" class="form-label">categoria</label>
+              <select
+                id="categoria"
+                class="form-select"
+                formControlName="categoria"
+              >
+                <option selected>medicamentos</option>
+                <option>sistema</option>
+                <option>impostos</option>
+                <option>limpeza</option>
+                <option>manutenção</option>
+                <option>funcionários</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="recorrencia" class="form-label">recorrência</label>
+              <select
+                id="recorrencia"
+                class="form-select"
+                formControlName="recorrencia"
+              >
+                <option selected>não</option>
+                <option>diário</option>
+                <option>mensal</option>
+                <option>anual</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="tipoPagamento" class="form-label"
+                >tipo de Pagamento</label
+              >
+              <select
+                id="tipoPagamento"
+                class="form-select"
+                formControlName="tipoPagamento"
+              >
+                <option selected>boleto</option>
+                <option>PIX</option>
+              </select>
+            </div>
+            <div
+              class="col-md-4"
+              *ngIf="paymentForm.value.tipoPagamento === 'boleto'"
+            >
+              <label for="codigoBoleto" class="form-label"
+                >código do boleto</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="codigoBoleto"
+                formControlName="codigoBoleto"
+              />
+            </div>
+            <div
+              class="col-md-8"
+              *ngIf="paymentForm.value.tipoPagamento === 'boleto'"
+            >
+              <label for="codigoBarras" class="form-label"
+                >código de Barras</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="codigoBarras"
+                placeholder="23793.12909 20330.366558 02001.118104 2 89840000035339"
+                formControlName="codigoBarras"
+              />
+            </div>
+            <div
+              class="col-md-4"
+              *ngIf="paymentForm.value.tipoPagamento === 'PIX'"
+            >
+              <label for="chavePIX" class="form-label">Chave PIX</label>
+              <input
+                type="text"
+                class="form-control"
+                id="chavePIX"
+                formControlName="chavePIX"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer mt-4">
+          <a type="button" class="btn btn-light" [routerLink]="['/']">
+            Cancelar
+          </a>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!paymentForm.valid"
+          >
+            <!-- <span
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                  [hidden]="false"
+                ></span> -->
+            <span> {{ "Cadastrar" }}</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

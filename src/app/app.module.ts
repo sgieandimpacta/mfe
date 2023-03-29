@@ -7,6 +7,10 @@ import { PaymentComponent } from './components/payments/payment.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreatePaymentComponent } from './components/payments/create/create-payment.component';
 import { ListPaymentComponent } from './components/payments/list/list-payment.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 const components = [
   PaymentComponent,
@@ -15,7 +19,15 @@ const components = [
 ];
 @NgModule({
   declarations: [AppComponent, components],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    CurrencyMaskModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
