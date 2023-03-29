@@ -5,9 +5,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
+import { PaymentService } from 'src/app/Services/payment.service';
+import { Payment } from 'src/app/shared/models/Payment';
+import { toISOStringTimezoneOffset } from 'src/app/shared/utils/date-helper';
 @Component({
   selector: 'app-create-payment',
   templateUrl: './create-payment.component.html',
@@ -33,7 +37,9 @@ export class CreatePaymentComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private bsLocaleService: BsLocaleService
+    private bsLocaleService: BsLocaleService,
+    private service: PaymentService,
+    private router: Router
   ) {
     defineLocale('pt-br', ptBrLocale);
     this.bsLocaleService.use('pt-br');
@@ -62,6 +68,29 @@ export class CreatePaymentComponent implements OnInit {
   }
 
   cadastrarPagamento(): void {
-    console.log(this.paymentForm.value);
+    if (this.paymentForm.valid) {
+      const pagamento = this.castPayment();
+      this.service
+        .addPayment(pagamento)
+        .pipe()
+        .subscribe(() => {
+          this.router.navigate(['/']);
+        });
+    }
+  }
+
+  castPayment(): Payment {
+    return {
+      data_pagamento: toISOStringTimezoneOffset(
+        this.paymentForm.value.dataPagamento
+      ),
+      empresa: this.paymentForm.value.empresa,
+      tipo: this.paymentForm.value.tipoPagamento,
+      categoria: this.paymentForm.value.categoria,
+      recorrencia: this.paymentForm.value.recorrencia,
+      valor: Number(this.paymentForm.value.valor),
+      codigo_boleto: this.paymentForm.value.codigoBoleto,
+      codigo_barras: this.paymentForm.value.codigoBarras,
+    };
   }
 }
