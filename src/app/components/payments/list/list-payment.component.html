@@ -28,8 +28,12 @@
           <td>{{ payment.tipo }}</td>
           <td>{{ payment.categoria }}</td>
           <td>{{ payment.recorrencia }}</td>
-          <td>{{ payment.data_pagamento | date : "dd/MM/yyyy" }}</td>
-          <td>{{ payment.data_cadastro | date : "dd/MM/yyyy" }}</td>
+          <td>
+            {{ payment.data_pagamento | date : "dd/MM/yyyy HH:mm:ss" : "UTC" }}
+          </td>
+          <td>
+            {{ payment.data_cadastro | date : "dd/MM/yyyy HH:mm:ss" }}
+          </td>
           <td>{{ status[payment.status] }}</td>
         </tr>
       </tbody>

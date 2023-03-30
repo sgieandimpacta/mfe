@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +11,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { registerLocaleData } from '@angular/common';
+import ptBr from '@angular/common/locales/pt';
+registerLocaleData(ptBr);
 
 const components = [
   PaymentComponent,
@@ -28,7 +31,7 @@ const components = [
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

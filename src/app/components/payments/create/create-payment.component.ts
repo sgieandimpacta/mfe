@@ -11,7 +11,7 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { PaymentService } from 'src/app/Services/payment.service';
 import { PaymentRequest } from 'src/app/shared/models/Payment';
-import { toISOStringTimezoneOffset } from 'src/app/shared/utils/date-helper';
+import { getDateTimeFormat } from 'src/app/shared/utils/date-helper';
 @Component({
   selector: 'app-create-payment',
   templateUrl: './create-payment.component.html',
@@ -81,9 +81,7 @@ export class CreatePaymentComponent implements OnInit {
 
   castPayment(): PaymentRequest {
     return {
-      data_pagamento: toISOStringTimezoneOffset(
-        this.paymentForm.value.dataPagamento
-      ),
+      data_pagamento: getDateTimeFormat(this.paymentForm.value.dataPagamento),
       empresa: this.paymentForm.value.empresa,
       tipo: this.paymentForm.value.tipoPagamento,
       categoria: this.paymentForm.value.categoria,
