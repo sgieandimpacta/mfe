@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Payment } from '../shared/models/Payment';
+import { Payment, PaymentRequest } from '../shared/models/Payment';
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +15,11 @@ export class PaymentService {
     return this.http.get<Array<Payment>>(this.url);
   }
 
-  public addPayment(payment: Payment): Observable<any> {
+  public addPayment(payment: PaymentRequest): Observable<any> {
     return this.http.post(this.url, payment);
   }
 
-  public removePayment(id: string): Observable<any> {
+  public removePayment(id: String): Observable<any> {
     return this.http.delete(`${this.url}/${id}`);
   }
 

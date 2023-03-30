@@ -30,7 +30,7 @@
           <td>{{ payment.recorrencia }}</td>
           <td>{{ payment.data_pagamento | date : "dd/MM/yyyy" }}</td>
           <td>{{ payment.data_cadastro | date : "dd/MM/yyyy" }}</td>
-          <td>{{ payment.status }}</td>
+          <td>{{ status[payment.status] }}</td>
         </tr>
       </tbody>
     </table>
