@@ -19,6 +19,7 @@ import { getDateTimeFormat } from 'src/app/shared/utils/date-helper';
 })
 export class CreatePaymentComponent implements OnInit {
   paymentForm!: FormGroup;
+  disableLoading = true;
 
   OPTIONS = [
     'FUNCIONÁRIOS',
@@ -69,11 +70,13 @@ export class CreatePaymentComponent implements OnInit {
 
   cadastrarPagamento(): void {
     if (this.paymentForm.valid) {
+      this.disableLoading = false;
       const pagamento = this.castPayment();
       this.service
         .addPayment(pagamento)
         .pipe()
         .subscribe(() => {
+          this.disableLoading = true;
           this.router.navigate(['/']);
         });
     }
