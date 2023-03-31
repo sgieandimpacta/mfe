@@ -153,20 +153,24 @@
           </div>
         </div>
         <div class="modal-footer mt-4">
-          <a type="button" class="btn btn-light" [routerLink]="['/']">
-            Cancelar
-          </a>
+          <button
+            type="button"
+            class="btn btn-light margin-right-button-voltar"
+            [routerLink]="['/']"
+          >
+            Voltar
+          </button>
           <button
             type="submit"
             class="btn btn-primary"
             [disabled]="!paymentForm.valid"
           >
             <!-- <span
-                  class="spinner-border spinner-border-sm"
-                  role="status"
-                  aria-hidden="true"
-                  [hidden]="false"
-                ></span> -->
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                    [hidden]="false"
+                  ></span> -->
             <span> {{ "Cadastrar" }}</span>
           </button>
         </div>
