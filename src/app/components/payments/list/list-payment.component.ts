@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PaymentService } from 'src/app/Services/payment.service';
+import { PaymentService } from 'src/app/services/payment.service';
 import { PaymentStatus } from 'src/app/shared/enums/status-payments.enum';
 import { Payment } from 'src/app/shared/models/Payment';
 

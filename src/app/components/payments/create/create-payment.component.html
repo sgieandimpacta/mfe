@@ -106,7 +106,7 @@
                 formControlName="tipoPagamento"
               >
                 <option selected>boleto</option>
-                <option>PIX</option>
+                <option>pix</option>
               </select>
             </div>
             <div
@@ -140,7 +140,7 @@
             </div>
             <div
               class="col-md-4"
-              *ngIf="paymentForm.value.tipoPagamento === 'PIX'"
+              *ngIf="paymentForm.value.tipoPagamento === 'pix'"
             >
               <label for="chavePIX" class="form-label">Chave PIX</label>
               <input
