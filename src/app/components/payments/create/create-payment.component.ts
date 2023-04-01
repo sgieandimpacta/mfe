@@ -11,6 +11,7 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { PaymentService } from 'src/app/services/payment.service';
 import { conditionalValidator } from 'src/app/shared/directives/conditional-validators.directive';
+import { PaymentForm } from 'src/app/shared/enums/form-payments.enum';
 import { PaymentRequest } from 'src/app/shared/models/Payment';
 import { getDateTimeFormat } from 'src/app/shared/utils/date-helper';
 @Component({
@@ -52,10 +53,19 @@ export class CreatePaymentComponent implements OnInit {
       empresa: new FormControl('', [Validators.required]),
       categoria: ['', Validators.required],
       tipoPagamento: ['', Validators.required],
-      codigoBoleto: ['', [this.fieldConditionallyRequiredValidator('boleto')]],
-      codigoBarras: ['', [this.fieldConditionallyRequiredValidator('boleto')]],
-      chavePIX: ['', [this.fieldConditionallyRequiredValidator('pix')]],
-      dataPagamento: ['', Validators.required],
+      codigoBoleto: [
+        '',
+        [this.fieldConditionallyRequiredValidator(PaymentForm.BOLETO)],
+      ],
+      codigoBarras: [
+        '',
+        [this.fieldConditionallyRequiredValidator(PaymentForm.BOLETO)],
+      ],
+      chavePIX: [
+        '',
+        [this.fieldConditionallyRequiredValidator(PaymentForm.PIX)],
+      ],
+      dataVencimento: ['', Validators.required],
       recorrencia: ['', Validators.required],
       valor: new FormControl('', [Validators.required]),
     });
@@ -87,7 +97,7 @@ export class CreatePaymentComponent implements OnInit {
 
   private castPayment(): PaymentRequest {
     return {
-      data_pagamento: getDateTimeFormat(this.paymentForm.value.dataPagamento),
+      data_vencimento: getDateTimeFormat(this.paymentForm.value.dataVencimento),
       empresa: this.paymentForm.value.empresa,
       tipo: this.paymentForm.value.tipoPagamento,
       categoria: this.paymentForm.value.categoria,

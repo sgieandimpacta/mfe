@@ -4,7 +4,7 @@ export interface Payment {
   tipo: string;
   categoria: string;
   recorrencia: string;
-  data_pagamento: string;
+  data_vencimento: string;
   valor: number;
   status: number;
   data_cadastro: string;
@@ -18,7 +18,7 @@ export interface PaymentRequest {
   tipo: string;
   categoria: string;
   recorrencia: string;
-  data_pagamento: string;
+  data_vencimento: string;
   valor: number;
   codigo_boleto?: string;
   codigo_barras?: string;

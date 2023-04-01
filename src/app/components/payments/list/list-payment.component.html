@@ -16,7 +16,7 @@
             <th>tipo</th>
             <th>categoria</th>
             <th>recorrência</th>
-            <th>data pgto</th>
+            <th>data vencimento</th>
             <th>data cadastro</th>
             <th>status</th>
           </tr>
@@ -30,7 +30,7 @@
             <td>{{ payment.categoria }}</td>
             <td>{{ payment.recorrencia }}</td>
             <td>
-              {{ payment.data_pagamento | date : "dd/MM/yyyy" : "+03:00" }}
+              {{ payment.data_vencimento | date : "dd/MM/yyyy" : "+03:00" }}
             </td>
             <td>
               {{ payment.data_cadastro | date : "dd/MM/yyyy HH:mm:ss" }}
