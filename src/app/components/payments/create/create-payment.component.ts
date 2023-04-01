@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
@@ -50,7 +45,7 @@ export class CreatePaymentComponent implements OnInit {
 
   ngOnInit(): void {
     this.paymentForm = this.fb.group({
-      empresa: new FormControl('', [Validators.required]),
+      empresa: ['', [Validators.required]],
       categoria: ['', Validators.required],
       tipoPagamento: ['', Validators.required],
       codigoBoleto: [
@@ -67,7 +62,7 @@ export class CreatePaymentComponent implements OnInit {
       ],
       dataVencimento: ['', Validators.required],
       recorrencia: ['', Validators.required],
-      valor: new FormControl('', [Validators.required]),
+      valor: ['', [Validators.required]],
     });
 
     this.defineConditionalFieldsRequiredByPaymentForm();

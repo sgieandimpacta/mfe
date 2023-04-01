@@ -101,5 +101,7 @@
       }
     }
   },
-  "defaultProject": "mfe"
+  "cli": {
+    "analytics": "a648c9fe-9ae3-4564-9836-796bee2a187d"
+  }
 }
