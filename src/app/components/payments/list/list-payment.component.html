@@ -2,7 +2,7 @@
   <div class="card p-4 mt-5">
     <div class="d-grid gap-2 d-md-flex justify-content-md-between">
       <h3>Lista de Pagamentos</h3>
-      <a routerLink="create" type="button" class="btn btn-success"
+      <a routerLink="/create" type="button" class="btn btn-success"
         >Cadastrar Pagamento</a
       >
     </div>
@@ -10,33 +10,36 @@
       <table class="mt-3 table table-striped">
         <thead>
           <tr>
-            <th>id</th>
+            <!-- <th>id</th> -->
             <th>valor</th>
             <th>empresa</th>
-            <th>tipo</th>
-            <th>categoria</th>
-            <th>recorrência</th>
             <th>data vencimento</th>
-            <th>data cadastro</th>
+            <th>tipo</th>
             <th>status</th>
+            <th>categoria</th>
+            <!-- <th>recorrência</th> -->
+            <th>data cadastro</th>
             <th class="title-acoes">ações</th>
           </tr>
         </thead>
         <tbody *ngIf="payments.length; else naoExistemPagamentos">
-          <tr *ngFor="let payment of payments">
-            <td>{{ payment.id }}</td>
+          <tr
+            *ngFor="let payment of payments"
+            [ngClass]="setColorRow(payment.status)"
+          >
+            <!-- <td>{{ payment.id }}</td> -->
             <td>{{ payment.valor | currency : "BRL" }}</td>
             <td>{{ payment.empresa }}</td>
-            <td>{{ payment.tipo }}</td>
-            <td>{{ payment.categoria }}</td>
-            <td>{{ payment.recorrencia }}</td>
             <td>
               {{ payment.data_vencimento | date : "dd/MM/yyyy" : "+03:00" }}
             </td>
+            <td>{{ payment.tipo }}</td>
+            <td>{{ status[payment.status] }}</td>
+            <td>{{ payment.categoria }}</td>
+            <!-- <td>{{ payment.recorrencia }}</td> -->
             <td>
               {{ payment.data_cadastro | date : "dd/MM/yyyy HH:mm:ss" }}
             </td>
-            <td>{{ status[payment.status] }}</td>
             <td>
               <div class="acoes">
                 <a
@@ -49,25 +52,27 @@
                 <a
                   [routerLink]="['/edit']"
                   [queryParams]="{ id: payment.id }"
+                  [class.disabled]="payment.status !== 0"
                   title="Editar pagamento"
                 >
                   <i class="bi bi-pencil"></i>
                 </a>
                 <a
-                  (click)="deletePayment(payment.id)"
+                  (click)="deletePayment(payment)"
+                  [class.disabled]="payment.status === 2"
                   title="Excluir pagamento"
                 >
                   <i class="bi bi-trash"></i>
                 </a>
                 <a
-                  (click)="schedulePayment(payment.id)"
+                  (click)="schedulePayment(payment)"
                   [class.disabled]="payment.status !== 0"
                   title="Agendar pagamento"
                 >
                   <i class="bi bi-clock-history"></i>
                 </a>
                 <a
-                  (click)="makePayment(payment.id)"
+                  (click)="makePayment(payment)"
                   [class.disabled]="payment.status !== 1"
                   title="Definir pagamento como pago"
                 >
@@ -84,7 +89,7 @@
 <ng-template #naoExistemPagamentos
   ><tbody>
     <tr class="text-center">
-      <td colspan="9">Não existem pagamentos cadastrados.</td>
+      <td colspan="10">Não existem pagamentos cadastrados.</td>
     </tr>
   </tbody></ng-template
 >
