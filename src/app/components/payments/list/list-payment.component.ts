@@ -21,4 +21,8 @@ export class ListPaymentComponent implements OnInit {
       this.payments = payments;
     });
   }
+
+  makePayment(id: string): void {}
+  deletePayment(id: string): void {}
+  schedulePayment(id: string): void {}
 }

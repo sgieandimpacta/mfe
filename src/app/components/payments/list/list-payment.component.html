@@ -19,6 +19,7 @@
             <th>data vencimento</th>
             <th>data cadastro</th>
             <th>status</th>
+            <th class="title-acoes">ações</th>
           </tr>
         </thead>
         <tbody *ngIf="payments.length; else naoExistemPagamentos">
@@ -36,6 +37,44 @@
               {{ payment.data_cadastro | date : "dd/MM/yyyy HH:mm:ss" }}
             </td>
             <td>{{ status[payment.status] }}</td>
+            <td>
+              <div class="acoes">
+                <a
+                  [routerLink]="['/show']"
+                  [queryParams]="{ id: payment.id }"
+                  title="Detalhar pagamento"
+                >
+                  <i class="bi bi-eye"></i>
+                </a>
+                <a
+                  [routerLink]="['/edit']"
+                  [queryParams]="{ id: payment.id }"
+                  title="Editar pagamento"
+                >
+                  <i class="bi bi-pencil"></i>
+                </a>
+                <a
+                  (click)="deletePayment(payment.id)"
+                  title="Excluir pagamento"
+                >
+                  <i class="bi bi-trash"></i>
+                </a>
+                <a
+                  (click)="schedulePayment(payment.id)"
+                  [class.disabled]="payment.status !== 0"
+                  title="Agendar pagamento"
+                >
+                  <i class="bi bi-clock-history"></i>
+                </a>
+                <a
+                  (click)="makePayment(payment.id)"
+                  [class.disabled]="payment.status !== 1"
+                  title="Definir pagamento como pago"
+                >
+                  <i class="bi bi-credit-card"></i>
+                </a>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
