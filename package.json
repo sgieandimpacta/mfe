@@ -20,6 +20,7 @@
     "@angular/router": "~13.3.0",
     "angular-animations": "^0.11.0",
     "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.3",
     "ng2-currency-mask": "^13.0.3",
     "ngx-bootstrap": "^8.0.0",
     "rxjs": "~7.5.0",

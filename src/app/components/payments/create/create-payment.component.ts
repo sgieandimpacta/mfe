@@ -9,9 +9,11 @@ import { Router } from '@angular/router';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
-import { PaymentService } from 'src/app/Services/payment.service';
-import { Payment } from 'src/app/shared/models/Payment';
-import { toISOStringTimezoneOffset } from 'src/app/shared/utils/date-helper';
+import { PaymentService } from 'src/app/services/payment.service';
+import { conditionalValidator } from 'src/app/shared/directives/conditional-validators.directive';
+import { PaymentForm } from 'src/app/shared/enums/form-payments.enum';
+import { PaymentRequest } from 'src/app/shared/models/Payment';
+import { getDateTimeFormat } from 'src/app/shared/utils/date-helper';
 @Component({
   selector: 'app-create-payment',
   templateUrl: './create-payment.component.html',
@@ -19,6 +21,7 @@ import { toISOStringTimezoneOffset } from 'src/app/shared/utils/date-helper';
 })
 export class CreatePaymentComponent implements OnInit {
   paymentForm!: FormGroup;
+  disableLoading = true;
 
   OPTIONS = [
     'FUNCIONÁRIOS',
@@ -50,13 +53,24 @@ export class CreatePaymentComponent implements OnInit {
       empresa: new FormControl('', [Validators.required]),
       categoria: ['', Validators.required],
       tipoPagamento: ['', Validators.required],
-      codigoBoleto: '',
-      codigoBarras: '',
-      chavePIX: '',
-      dataPagamento: ['', Validators.required],
+      codigoBoleto: [
+        '',
+        [this.fieldConditionallyRequiredValidator(PaymentForm.BOLETO)],
+      ],
+      codigoBarras: [
+        '',
+        [this.fieldConditionallyRequiredValidator(PaymentForm.BOLETO)],
+      ],
+      chavePIX: [
+        '',
+        [this.fieldConditionallyRequiredValidator(PaymentForm.PIX)],
+      ],
+      dataVencimento: ['', Validators.required],
       recorrencia: ['', Validators.required],
       valor: new FormControl('', [Validators.required]),
     });
+
+    this.defineConditionalFieldsRequiredByPaymentForm();
   }
 
   get valor() {
@@ -69,21 +83,21 @@ export class CreatePaymentComponent implements OnInit {
 
   cadastrarPagamento(): void {
     if (this.paymentForm.valid) {
+      this.disableLoading = false;
       const pagamento = this.castPayment();
       this.service
         .addPayment(pagamento)
         .pipe()
         .subscribe(() => {
+          this.disableLoading = true;
           this.router.navigate(['/']);
         });
     }
   }
 
-  castPayment(): Payment {
+  private castPayment(): PaymentRequest {
     return {
-      data_pagamento: toISOStringTimezoneOffset(
-        this.paymentForm.value.dataPagamento
-      ),
+      data_vencimento: getDateTimeFormat(this.paymentForm.value.dataVencimento),
       empresa: this.paymentForm.value.empresa,
       tipo: this.paymentForm.value.tipoPagamento,
       categoria: this.paymentForm.value.categoria,
@@ -92,5 +106,25 @@ export class CreatePaymentComponent implements OnInit {
       codigo_boleto: this.paymentForm.value.codigoBoleto,
       codigo_barras: this.paymentForm.value.codigoBarras,
     };
+  }
+
+  private fieldConditionallyRequiredValidator(valueExpected: string) {
+    return conditionalValidator(
+      () => this.validaTipoPagamentoSelecionado(valueExpected),
+      Validators.required,
+      'requiredConditionalError'
+    );
+  }
+
+  private validaTipoPagamentoSelecionado(expectedValue: string): boolean {
+    return this.paymentForm.get('tipoPagamento')?.value === expectedValue;
+  }
+
+  private defineConditionalFieldsRequiredByPaymentForm(): void {
+    this.paymentForm.get('tipoPagamento')?.valueChanges.subscribe((value) => {
+      this.paymentForm.get('chavePIX')?.updateValueAndValidity();
+      this.paymentForm.get('codigoBoleto')?.updateValueAndValidity();
+      this.paymentForm.get('codigoBarras')?.updateValueAndValidity();
+    });
   }
 }

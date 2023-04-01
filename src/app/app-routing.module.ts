@@ -17,14 +17,16 @@ const routes: Routes = [
         path: 'create',
         component: CreatePaymentComponent,
       },
-      // {
-      //   path: 'edit-payment',
-      //   component: EditPaymentComponent,
-      // },
-      // {
-      //   path: 'show-payment',
-      //   component: ShowPaymentComponent,
-      // },
+      {
+        path: 'edit',
+        // component: EditPaymentComponent,
+        component: ListPaymentComponent,
+      },
+      {
+        path: 'show',
+        component: ListPaymentComponent,
+        // component: ShowPaymentComponent,
+      },
     ],
   },
   // {

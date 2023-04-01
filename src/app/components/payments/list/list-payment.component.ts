@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PaymentService } from 'src/app/Services/payment.service';
+import { PaymentService } from 'src/app/services/payment.service';
+import { PaymentStatus } from 'src/app/shared/enums/status-payments.enum';
 import { Payment } from 'src/app/shared/models/Payment';
 
 @Component({
@@ -10,6 +11,8 @@ import { Payment } from 'src/app/shared/models/Payment';
 export class ListPaymentComponent implements OnInit {
   title = 'mfe';
   payments: Payment[] = [];
+  status = PaymentStatus;
+
   constructor(private service: PaymentService) {}
 
   ngOnInit(): void {
@@ -18,4 +21,8 @@ export class ListPaymentComponent implements OnInit {
       this.payments = payments;
     });
   }
+
+  makePayment(id: string): void {}
+  deletePayment(id: string): void {}
+  schedulePayment(id: string): void {}
 }

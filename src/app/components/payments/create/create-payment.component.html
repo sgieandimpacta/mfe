@@ -30,8 +30,8 @@
               </div>
             </div>
             <div class="col-md-4">
-              <label for="dataPagamento" class="form-label"
-                >data de pagamento</label
+              <label for="dataVencimento" class="form-label"
+                >data de vencimento</label
               >
               <div class="row">
                 <div class="col-xs-12">
@@ -40,7 +40,7 @@
                     placeholder="Selecione uma data"
                     class="form-control"
                     bsDatepicker
-                    formControlName="dataPagamento"
+                    formControlName="dataVencimento"
                   />
                 </div>
               </div>
@@ -106,7 +106,8 @@
                 formControlName="tipoPagamento"
               >
                 <option selected>boleto</option>
-                <option>PIX</option>
+                <option>pix</option>
+                <option>dinheiro</option>
               </select>
             </div>
             <div
@@ -140,7 +141,7 @@
             </div>
             <div
               class="col-md-4"
-              *ngIf="paymentForm.value.tipoPagamento === 'PIX'"
+              *ngIf="paymentForm.value.tipoPagamento === 'pix'"
             >
               <label for="chavePIX" class="form-label">Chave PIX</label>
               <input
@@ -153,21 +154,25 @@
           </div>
         </div>
         <div class="modal-footer mt-4">
-          <a type="button" class="btn btn-light" [routerLink]="['/']">
-            Cancelar
-          </a>
+          <button
+            type="button"
+            class="btn btn-light margin-right-button-voltar"
+            [routerLink]="['/']"
+          >
+            Voltar
+          </button>
           <button
             type="submit"
             class="btn btn-primary"
             [disabled]="!paymentForm.valid"
           >
-            <!-- <span
-                  class="spinner-border spinner-border-sm"
-                  role="status"
-                  aria-hidden="true"
-                  [hidden]="false"
-                ></span> -->
-            <span> {{ "Cadastrar" }}</span>
+            <span> {{ "Cadastrar" }} </span>
+            <span
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+              [hidden]="disableLoading"
+            ></span>
           </button>
         </div>
       </div>
