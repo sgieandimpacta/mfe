@@ -11,7 +11,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CreatePaymentComponent } from './components/payments/create/create-payment.component';
-import { EditPaymentComponent } from './components/payments/edit/edit-payment/edit-payment.component';
+import { EditPaymentComponent } from './components/payments/edit/edit-payment.component';
 import { ListPaymentComponent } from './components/payments/list/list-payment.component';
 import { PaymentComponent } from './components/payments/payment.component';
 registerLocaleData(ptBr);
