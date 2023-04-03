@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PaymentComponent } from './components/payments/payment.component';
 import { CreatePaymentComponent } from './components/payments/create/create-payment.component';
 import { ListPaymentComponent } from './components/payments/list/list-payment.component';
+import { EditPaymentComponent } from './components/payments/edit/edit-payment/edit-payment.component';
 
 const routes: Routes = [
   {
@@ -19,8 +20,7 @@ const routes: Routes = [
       },
       {
         path: 'edit',
-        // component: EditPaymentComponent,
-        component: ListPaymentComponent,
+        component: EditPaymentComponent,
       },
       {
         path: 'show',

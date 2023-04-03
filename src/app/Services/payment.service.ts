@@ -15,8 +15,16 @@ export class PaymentService {
     return this.http.get<Array<Payment>>(this.url);
   }
 
+  public getPayment(id: string): Observable<Payment> {
+    return this.http.get<Payment>(`${this.url}/${id}`);
+  }
+
   public addPayment(payment: PaymentRequest): Observable<any> {
     return this.http.post(this.url, payment);
+  }
+
+  public updatePayment(id: string, payment: PaymentRequest): Observable<any> {
+    return this.http.put(`${this.url}/${id}`, payment);
   }
 
   public schedulePayment(id: String): Observable<any> {

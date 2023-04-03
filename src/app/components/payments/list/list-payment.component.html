@@ -59,7 +59,7 @@
                 </a>
                 <a
                   (click)="deletePayment(payment)"
-                  [class.disabled]="payment.status === 2"
+                  [class.disabled]="payment.status !== 0"
                   title="Excluir pagamento"
                 >
                   <i class="bi bi-trash"></i>
