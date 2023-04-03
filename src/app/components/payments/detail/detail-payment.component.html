@@ -1,0 +1,172 @@
+<div class="container">
+  <div class="card p-4 mt-5">
+    <form *ngIf="payment" [formGroup]="paymentForm" #formDir="ngForm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Atualizar Pagamento</h3>
+        </div>
+        <div class="modal-body mt-3">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="empresa" class="form-label">empresa</label>
+              <select
+                id="empresa"
+                class="form-select"
+                formControlName="empresa"
+              >
+                <option [value]="option" *ngFor="let option of OPTIONS">
+                  {{ option }}
+                </option>
+              </select>
+              <div
+                *ngIf="empresa.invalid && formDir.submitted"
+                class="invalid-feedback"
+              >
+                Por favor, selecione um empresa.
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="dataVencimento" class="form-label"
+                >data de vencimento</label
+              >
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      placeholder="yyyy-mm-dd"
+                      name="dp"
+                      ngbDatepicker
+                      #d="ngbDatepicker"
+                      formControlName="dataVencimento"
+                    />
+                    <button
+                      class="btn btn-outline-secondary bi bi-calendar3"
+                      (click)="d.toggle()"
+                      type="button"
+                    ></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="inputValor" class="form-label">valor</label>
+              <div class="has-validation">
+                <input
+                  currencyMask
+                  type="text"
+                  class="form-control"
+                  id="inputValor"
+                  formControlName="valor"
+                  [options]="{
+                    prefix: 'R$ ',
+                    thousands: '.',
+                    decimal: ','
+                  }"
+                />
+                <div
+                  *ngIf="valor.invalid && formDir.submitted"
+                  class="invalid-feedback"
+                >
+                  Por favor, adicione um valor.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="categoria" class="form-label">categoria</label>
+              <select
+                id="categoria"
+                class="form-select"
+                formControlName="categoria"
+              >
+                <option selected>medicamentos</option>
+                <option>sistema</option>
+                <option>impostos</option>
+                <option>limpeza</option>
+                <option>manutenção</option>
+                <option>funcionários</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="recorrencia" class="form-label">recorrência</label>
+              <select
+                id="recorrencia"
+                class="form-select"
+                formControlName="recorrencia"
+              >
+                <option selected>não</option>
+                <option>diário</option>
+                <option>mensal</option>
+                <option>anual</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="tipoPagamento" class="form-label"
+                >tipo de Pagamento</label
+              >
+              <select
+                id="tipoPagamento"
+                class="form-select"
+                formControlName="tipoPagamento"
+              >
+                <option selected>boleto</option>
+                <option>pix</option>
+                <option>dinheiro</option>
+              </select>
+            </div>
+            <div
+              class="col-md-4"
+              *ngIf="paymentForm.value.tipoPagamento === 'boleto'"
+            >
+              <label for="codigoBoleto" class="form-label"
+                >código do boleto</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="codigoBoleto"
+                formControlName="codigoBoleto"
+              />
+            </div>
+            <div
+              class="col-md-8"
+              *ngIf="paymentForm.value.tipoPagamento === 'boleto'"
+            >
+              <label for="codigoBarras" class="form-label"
+                >código de Barras</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="codigoBarras"
+                placeholder="23793.12909 20330.366558 02001.118104 2 89840000035339"
+                formControlName="codigoBarras"
+              />
+            </div>
+            <div
+              class="col-md-4"
+              *ngIf="paymentForm.value.tipoPagamento === 'pix'"
+            >
+              <label for="chavePIX" class="form-label">Chave PIX</label>
+              <input
+                type="text"
+                class="form-control"
+                id="chavePIX"
+                formControlName="chavePIX"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer mt-4">
+          <button
+            type="button"
+            class="btn btn-light margin-right-button-voltar"
+            [routerLink]="['/']"
+          >
+            Voltar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
