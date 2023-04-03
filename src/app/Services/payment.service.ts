@@ -19,15 +19,15 @@ export class PaymentService {
     return this.http.post(this.url, payment);
   }
 
-  public removePayment(id: String): Observable<any> {
-    return this.http.delete(`${this.url}/${id}`);
+  public schedulePayment(id: String): Observable<any> {
+    return this.http.put(`${this.url}/${id}`, { status: 1 });
   }
 
   public makePayment(id: String): Observable<any> {
-    return this.http.patch(`${this.url}/${id}`, { id_status: 2 });
+    return this.http.put(`${this.url}/${id}`, { status: 2 });
   }
 
-  public schedulePayment(id: String): Observable<any> {
-    return this.http.patch(`${this.url}/${id}`, { id_status: 1 });
+  public removePayment(id: String): Observable<any> {
+    return this.http.delete(`${this.url}/${id}`);
   }
 }

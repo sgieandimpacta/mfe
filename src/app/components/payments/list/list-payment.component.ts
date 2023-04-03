@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PaymentService } from 'src/app/services/payment.service';
-import { PaymentStatus } from 'src/app/shared/enums/status-payments.enum';
+import {
+  PaymentStatus,
+  StatusRow,
+} from 'src/app/shared/enums/status-payments.enum';
 import { Payment } from 'src/app/shared/models/Payment';
 
 @Component({
@@ -16,13 +19,46 @@ export class ListPaymentComponent implements OnInit {
   constructor(private service: PaymentService) {}
 
   ngOnInit(): void {
-    const payments = this.service.getPayments();
-    payments.pipe().subscribe((payments) => {
-      this.payments = payments;
-    });
+    this.getPayments();
   }
 
-  makePayment(id: string): void {}
-  deletePayment(id: string): void {}
-  schedulePayment(id: string): void {}
+  getPayments(): void {
+    this.service
+      .getPayments()
+      .pipe()
+      .subscribe((payments) => {
+        this.payments = payments;
+      });
+  }
+
+  schedulePayment(payment: Payment): void {
+    if (payment.status === 0)
+      this.service.schedulePayment(payment.id).subscribe({
+        next: () => this.getPayments(),
+        error: (e) => console.error(e),
+        complete: () => console.info('complete'),
+      });
+  }
+
+  makePayment(payment: Payment): void {
+    if (payment.status === 1)
+      this.service.makePayment(payment.id).subscribe({
+        next: () => this.getPayments(),
+        error: (e) => console.error(e),
+        complete: () => console.info('complete'),
+      });
+  }
+
+  deletePayment(payment: Payment): void {
+    if (payment.status !== 2)
+      this.service.removePayment(payment.id).subscribe({
+        next: () => this.getPayments(),
+        error: (e) => console.error(e),
+        complete: () => console.info('complete'),
+      });
+  }
+
+  setColorRow(status: number): string {
+    return StatusRow[status];
+  }
 }

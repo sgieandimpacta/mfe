@@ -10,9 +10,9 @@ import { ListPaymentComponent } from './components/payments/list/list-payment.co
 import { ReactiveFormsModule } from '@angular/forms';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 registerLocaleData(ptBr);
 
 const components = [
@@ -29,7 +29,7 @@ const components = [
     ReactiveFormsModule,
     CurrencyMaskModule,
     BrowserAnimationsModule,
-    BsDatepickerModule.forRoot(),
+    NgbModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
   bootstrap: [AppComponent],
