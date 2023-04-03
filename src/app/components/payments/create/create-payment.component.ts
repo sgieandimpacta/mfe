@@ -95,6 +95,7 @@ export class CreatePaymentComponent implements OnInit {
       valor: Number(this.paymentForm.value.valor),
       codigo_boleto: this.paymentForm.value.codigoBoleto,
       codigo_barras: this.paymentForm.value.codigoBarras,
+      chave_pix: this.paymentForm.value.chavePIX,
     };
   }
 
@@ -111,7 +112,7 @@ export class CreatePaymentComponent implements OnInit {
   }
 
   private defineConditionalFieldsRequiredByPaymentForm(): void {
-    this.paymentForm.get('tipoPagamento')?.valueChanges.subscribe((value) => {
+    this.paymentForm.get('tipoPagamento')?.valueChanges.subscribe(() => {
       this.paymentForm.get('chavePIX')?.updateValueAndValidity();
       this.paymentForm.get('codigoBoleto')?.updateValueAndValidity();
       this.paymentForm.get('codigoBarras')?.updateValueAndValidity();
