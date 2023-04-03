@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PaymentService } from 'src/app/services/payment.service';
+import { PaymentForm } from 'src/app/shared/enums/form-payments.enum';
 import {
   PaymentStatus,
   StatusRow,
@@ -15,6 +16,7 @@ export class ListPaymentComponent implements OnInit {
   title = 'mfe';
   payments: Payment[] = [];
   status = PaymentStatus;
+  paymentForm = PaymentForm;
 
   constructor(private service: PaymentService) {}
 
@@ -56,6 +58,17 @@ export class ListPaymentComponent implements OnInit {
         error: (e) => console.error(e),
         complete: () => console.info('complete'),
       });
+  }
+
+  copyToClipboard(payment: Payment) {
+    const key =
+      payment.tipo === PaymentForm.BOLETO
+        ? payment.codigo_barras
+        : payment.chave_pix;
+    navigator.clipboard
+      .writeText(key)
+      .then()
+      .catch((e) => console.log(e));
   }
 
   setColorRow(status: number): string {
