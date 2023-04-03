@@ -4,6 +4,7 @@ import { PaymentComponent } from './components/payments/payment.component';
 import { CreatePaymentComponent } from './components/payments/create/create-payment.component';
 import { ListPaymentComponent } from './components/payments/list/list-payment.component';
 import { EditPaymentComponent } from './components/payments/edit/edit-payment.component';
+import { DetailPaymentComponent } from './components/payments/detail/detail-payment.component';
 
 const routes: Routes = [
   {
@@ -24,8 +25,7 @@ const routes: Routes = [
       },
       {
         path: 'show',
-        component: ListPaymentComponent,
-        // component: ShowPaymentComponent,
+        component: DetailPaymentComponent,
       },
     ],
   },
