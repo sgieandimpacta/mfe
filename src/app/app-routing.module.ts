@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PaymentComponent } from './components/payments/payment.component';
+import { CompanyComponent } from './components/companies/company.component';
 import { CreatePaymentComponent } from './components/payments/create/create-payment.component';
-import { ListPaymentComponent } from './components/payments/list/list-payment.component';
-import { EditPaymentComponent } from './components/payments/edit/edit-payment.component';
 import { DetailPaymentComponent } from './components/payments/detail/detail-payment.component';
+import { EditPaymentComponent } from './components/payments/edit/edit-payment.component';
+import { ListPaymentComponent } from './components/payments/list/list-payment.component';
+import { PaymentComponent } from './components/payments/payment.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
         component: DetailPaymentComponent,
       },
     ],
+  },
+  {
+    path: 'companies',
+    component: CompanyComponent,
   },
   // {
   //   path: 'login',

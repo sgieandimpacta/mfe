@@ -1,3 +1,15 @@
 .margin-right-button-voltar {
   margin-right: 10px;
 }
+
+.adicionar-empresa {
+  height: 38px;
+  width: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px #6c757d;
+  color: #6c757d;
+  border-radius: 15%;
+  cursor: pointer;
+}

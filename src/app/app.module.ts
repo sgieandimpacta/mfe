@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CompanyComponent } from './components/companies/company.component';
 import { CreatePaymentComponent } from './components/payments/create/create-payment.component';
 import { DetailPaymentComponent } from './components/payments/detail/detail-payment.component';
 import { EditPaymentComponent } from './components/payments/edit/edit-payment.component';
@@ -23,6 +24,7 @@ const components = [
   ListPaymentComponent,
   EditPaymentComponent,
   DetailPaymentComponent,
+  CompanyComponent,
 ];
 
 @NgModule({
