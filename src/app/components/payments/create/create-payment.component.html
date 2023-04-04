@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="card p-4 mt-5">
+  <div class="card p-4 mt-5" *ngIf="companies.length">
     <form
       [formGroup]="paymentForm"
       (ngSubmit)="cadastrarPagamento()"
@@ -18,8 +18,11 @@
                 class="form-select"
                 formControlName="empresa"
               >
-                <option [value]="option" *ngFor="let option of OPTIONS">
-                  {{ option }}
+                <option
+                  [value]="option.descricao_resumida"
+                  *ngFor="let option of companies"
+                >
+                  {{ option.descricao_resumida | uppercase }}
                 </option>
               </select>
               <div
@@ -50,13 +53,6 @@
                       type="button"
                     ></button>
                   </div>
-                  <!-- <input
-                    type="text"
-                    placeholder="Selecione uma data"
-                    class="form-control"
-                    bsDatepicker
-                    formControlName="dataVencimento"
-                  /> -->
                 </div>
               </div>
             </div>
@@ -150,7 +146,7 @@
                 type="text"
                 class="form-control"
                 id="codigoBarras"
-                placeholder="23793.12909 20330.366558 02001.118104 2 89840000035339"
+                placeholder=""
                 formControlName="codigoBarras"
               />
             </div>

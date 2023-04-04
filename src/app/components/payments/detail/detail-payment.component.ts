@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { forkJoin, switchMap } from 'rxjs';
+import { CompanyService } from 'src/app/services/company.service';
 import { PaymentService } from 'src/app/services/payment.service';
-import { conditionalValidator } from 'src/app/shared/directives/conditional-validators.directive';
-import { PaymentForm } from 'src/app/shared/enums/form-payments.enum';
+import { Company } from 'src/app/shared/models/Company';
 import { Payment } from 'src/app/shared/models/Payment';
 import { defineObjectDateToDatePicker } from 'src/app/shared/utils/date-helper';
 
@@ -17,42 +18,39 @@ export class DetailPaymentComponent {
   payment?: Payment;
   disableLoading = true;
   readonly FIELDS: string[] = ['chavePIX', 'codigoBoleto', 'codigoBarras'];
-  readonly OPTIONS: string[] = [
-    'FUNCIONÁRIOS',
-    'ULTRAMEGA',
-    'CONTABILIDADE',
-    'INOVAFARMA',
-    'META',
-    'NOVA DISTRI',
-    'STERICYCLE',
-    'CIMED',
-    'SANTA CRUZ',
-    'ORGAFARMA',
-    'PANPHARMA',
-    'PROFARMA',
-  ];
+  companies: Company[] = [];
 
   constructor(
     private fb: FormBuilder,
     private service: PaymentService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private serviceCompany: CompanyService
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe((params) => {
-      this.service.getPayment(params['id']).subscribe((payment) => {
-        this.payment = payment;
-        this.createForm(payment);
-        this.defineConditionalFieldsRequiredByPaymentForm();
+    this.activatedRoute.queryParams
+      .pipe(
+        switchMap((params) => {
+          return forkJoin({
+            payment: this.service.getPayment(params['id']),
+            companies: this.serviceCompany.getCompanies(),
+          });
+        })
+      )
+      .subscribe((result) => {
+        this.payment = result.payment;
+        this.createForm(result.payment);
+        this.companies = result.companies;
       });
-    });
   }
 
   private createForm(payment: Payment) {
     this.paymentForm = this.fb.group({
       empresa: [
-        { value: payment.empresa, disabled: true },
+        {
+          value: payment.empresa,
+          disabled: true,
+        },
         [Validators.required],
       ],
       categoria: [
@@ -63,18 +61,9 @@ export class DetailPaymentComponent {
         { value: payment.tipo, disabled: true },
         Validators.required,
       ],
-      codigoBoleto: [
-        { value: payment.codigo_boleto, disabled: true },
-        [this.fieldConditionallyRequiredValidator(PaymentForm.BOLETO)],
-      ],
-      codigoBarras: [
-        { value: payment.codigo_barras, disabled: true },
-        [this.fieldConditionallyRequiredValidator(PaymentForm.BOLETO)],
-      ],
-      chavePIX: [
-        { value: payment.chave_pix, disabled: true },
-        [this.fieldConditionallyRequiredValidator(PaymentForm.PIX)],
-      ],
+      codigoBoleto: [{ value: payment.codigo_boleto, disabled: true }],
+      codigoBarras: [{ value: payment.codigo_barras, disabled: true }],
+      chavePIX: [{ value: payment.chave_pix, disabled: true }],
       dataVencimento: [
         {
           value: defineObjectDateToDatePicker(payment.data_vencimento),
@@ -98,23 +87,10 @@ export class DetailPaymentComponent {
     return this.paymentForm.get('empresa')!;
   }
 
-  private fieldConditionallyRequiredValidator(expectedValue: string) {
-    return conditionalValidator(
-      () => this.validatePaymentTypeSelected(expectedValue),
-      Validators.required,
-      'requiredConditionalError'
-    );
-  }
-
-  private validatePaymentTypeSelected(expectedValue: string): boolean {
-    return this.paymentForm.get('tipoPagamento')?.value === expectedValue;
-  }
-
-  private defineConditionalFieldsRequiredByPaymentForm(): void {
-    this.paymentForm.get('tipoPagamento')?.valueChanges.subscribe(() => {
-      this.FIELDS.forEach((field) =>
-        this.paymentForm.get(field)?.updateValueAndValidity()
-      );
-    });
+  copyToClipboard(value: string) {
+    navigator.clipboard
+      .writeText(value)
+      .then()
+      .catch((e) => console.log(e));
   }
 }

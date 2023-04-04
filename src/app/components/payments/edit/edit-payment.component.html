@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="card p-4 mt-5">
+  <div class="card p-4 mt-5" *ngIf="companies.length">
     <form
       *ngIf="payment"
       [formGroup]="paymentForm"
@@ -19,8 +19,11 @@
                 class="form-select"
                 formControlName="empresa"
               >
-                <option [value]="option" *ngFor="let option of OPTIONS">
-                  {{ option }}
+                <option
+                  [value]="option.descricao_resumida"
+                  *ngFor="let option of companies"
+                >
+                  {{ option.descricao_resumida | uppercase }}
                 </option>
               </select>
               <div

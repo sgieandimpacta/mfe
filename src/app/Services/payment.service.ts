@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Payment, PaymentRequest } from '../shared/models/Payment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PaymentService {
-  constructor(private http: HttpClient) {}
-
-  url = 'http://localhost:3333/payments';
-
+  private url: string;
+  constructor(private http: HttpClient) {
+    this.url = `${environment.apiUrl}/payments`;
+  }
   public getPayments(): Observable<Payment[]> {
     return this.http.get<Array<Payment>>(this.url);
   }
