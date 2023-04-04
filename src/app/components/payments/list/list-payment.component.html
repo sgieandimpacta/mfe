@@ -29,7 +29,7 @@
           >
             <!-- <td>{{ payment.id }}</td> -->
             <td>{{ payment.valor | currency : "BRL" }}</td>
-            <td>{{ payment.empresa }}</td>
+            <td>{{ payment.empresa | uppercase }}</td>
             <td>
               {{ payment.data_vencimento | date : "dd/MM/yyyy" : "+03:00" }}
             </td>

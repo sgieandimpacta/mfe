@@ -1,9 +1,9 @@
 <div class="container">
-  <div class="card p-4 mt-5">
+  <div class="card p-4 mt-5" *ngIf="companies.length">
     <form *ngIf="payment" [formGroup]="paymentForm" #formDir="ngForm">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>Atualizar Pagamento</h3>
+          <h3>Detalhes do Pagamento</h3>
         </div>
         <div class="modal-body mt-3">
           <div class="row g-3">
@@ -14,8 +14,11 @@
                 class="form-select"
                 formControlName="empresa"
               >
-                <option [value]="option" *ngFor="let option of OPTIONS">
-                  {{ option }}
+                <option
+                  [value]="option.descricao_resumida"
+                  *ngFor="let option of companies"
+                >
+                  {{ option.descricao_resumida | uppercase }}
                 </option>
               </select>
               <div
@@ -127,6 +130,12 @@
                 id="codigoBoleto"
                 formControlName="codigoBoleto"
               />
+              <!-- <a
+                (click)="copyToClipboard(payment.codigo_boleto)"
+                value="click to copy"
+                title="Copiar chave para pagamento"
+                ><i class="bi bi-clipboard"></i
+              ></a> -->
             </div>
             <div
               class="col-md-8"
@@ -142,6 +151,12 @@
                 placeholder="23793.12909 20330.366558 02001.118104 2 89840000035339"
                 formControlName="codigoBarras"
               />
+              <!-- <a
+                (click)="copyToClipboard(payment.codigo_barras)"
+                value="click to copy"
+                title="Copiar chave para pagamento"
+                ><i class="bi bi-clipboard"></i
+              ></a> -->
             </div>
             <div
               class="col-md-4"
@@ -154,6 +169,12 @@
                 id="chavePIX"
                 formControlName="chavePIX"
               />
+              <!-- <a
+                (click)="copyToClipboard(payment.chave_pix)"
+                value="click to copy"
+                title="Copiar chave para pagamento"
+                ><i class="bi bi-clipboard"></i
+              ></a> -->
             </div>
           </div>
         </div>

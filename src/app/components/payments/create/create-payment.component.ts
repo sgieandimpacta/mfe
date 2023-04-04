@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CompanyService } from 'src/app/services/company.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { conditionalValidator } from 'src/app/shared/directives/conditional-validators.directive';
 import { PaymentForm } from 'src/app/shared/enums/form-payments.enum';
+import { Company } from 'src/app/shared/models/Company';
 import { PaymentRequest } from 'src/app/shared/models/Payment';
 import { getDateFormatByObject } from 'src/app/shared/utils/date-helper';
 @Component({
@@ -15,28 +17,27 @@ export class CreatePaymentComponent implements OnInit {
   paymentForm!: FormGroup;
   disableLoading = true;
 
-  OPTIONS = [
-    'FUNCIONÁRIOS',
-    'ULTRAMEGA',
-    'CONTABILIDADE',
-    'INOVAFARMA',
-    'META',
-    'NOVA DISTRI',
-    'STERICYCLE',
-    'CIMED',
-    'SANTA CRUZ',
-    'ORGAFARMA',
-    'PANPHARMA',
-    'PROFARMA',
-  ];
+  companies: Company[] = [];
 
   constructor(
     private fb: FormBuilder,
     private service: PaymentService,
+    private serviceCompany: CompanyService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.serviceCompany
+      .getCompanies()
+      .pipe()
+      .subscribe((companies) => {
+        this.companies = companies;
+        this.createForm();
+        this.defineConditionalFieldsRequiredByPaymentForm();
+      });
+  }
+
+  private createForm() {
     this.paymentForm = this.fb.group({
       empresa: ['', [Validators.required]],
       categoria: ['', Validators.required],
@@ -57,8 +58,6 @@ export class CreatePaymentComponent implements OnInit {
       recorrencia: ['', Validators.required],
       valor: ['', [Validators.required]],
     });
-
-    this.defineConditionalFieldsRequiredByPaymentForm();
   }
 
   get valor() {

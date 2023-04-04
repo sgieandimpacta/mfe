@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { forkJoin, switchMap } from 'rxjs';
+import { CompanyService } from 'src/app/services/company.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { conditionalValidator } from 'src/app/shared/directives/conditional-validators.directive';
 import { PaymentForm } from 'src/app/shared/enums/form-payments.enum';
+import { Company } from 'src/app/shared/models/Company';
 import { Payment, PaymentRequest } from 'src/app/shared/models/Payment';
 import {
   defineObjectDateToDatePicker,
@@ -20,36 +23,33 @@ export class EditPaymentComponent {
   payment?: Payment;
   disableLoading = true;
   readonly FIELDS: string[] = ['chavePIX', 'codigoBoleto', 'codigoBarras'];
-  readonly OPTIONS: string[] = [
-    'FUNCIONÁRIOS',
-    'ULTRAMEGA',
-    'CONTABILIDADE',
-    'INOVAFARMA',
-    'META',
-    'NOVA DISTRI',
-    'STERICYCLE',
-    'CIMED',
-    'SANTA CRUZ',
-    'ORGAFARMA',
-    'PANPHARMA',
-    'PROFARMA',
-  ];
+
+  companies: Company[] = [];
 
   constructor(
     private fb: FormBuilder,
     private service: PaymentService,
+    private serviceCompany: CompanyService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe((params) => {
-      this.service.getPayment(params['id']).subscribe((payment) => {
-        this.payment = payment;
-        this.createForm(payment);
+    this.activatedRoute.queryParams
+      .pipe(
+        switchMap((params) => {
+          return forkJoin({
+            payment: this.service.getPayment(params['id']),
+            companies: this.serviceCompany.getCompanies(),
+          });
+        })
+      )
+      .subscribe((result) => {
+        this.payment = result.payment;
+        this.companies = result.companies;
+        this.createForm(result.payment);
         this.defineConditionalFieldsRequiredByPaymentForm();
       });
-    });
   }
 
   private createForm(payment: Payment) {
