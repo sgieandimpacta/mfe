@@ -1,15 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { Company, CompanyRequest } from '../shared/models/Company';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CompanyService {
-  constructor(private http: HttpClient) {}
-
-  url = 'http://localhost:3333/companys';
+  private url: string;
+  constructor(private http: HttpClient) {
+    this.url = `${environment.apiUrl}/companies`;
+  }
 
   public getCompanies(): Observable<Company[]> {
     return this.http.get<Array<Company>>(this.url);
