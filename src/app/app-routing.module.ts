@@ -15,42 +15,48 @@ const routes: Routes = [
     component: PaymentComponent,
     children: [
       {
-        path: '',
-        component: ListPaymentComponent,
+        path: 'payments',
+        component: PaymentComponent,
+        children: [
+          {
+            path: '',
+            component: ListPaymentComponent,
+          },
+          {
+            path: 'create',
+            component: CreatePaymentComponent,
+          },
+          {
+            path: 'edit',
+            component: EditPaymentComponent,
+          },
+          {
+            path: 'show',
+            component: DetailPaymentComponent,
+          },
+        ],
       },
       {
-        path: 'create',
-        component: CreatePaymentComponent,
-      },
-      {
-        path: 'edit',
-        component: EditPaymentComponent,
-      },
-      {
-        path: 'show',
-        component: DetailPaymentComponent,
-      },
-    ],
-  },
-  {
-    path: 'companies',
-    component: CompanyComponent,
-    children: [
-      {
-        path: '',
-        component: ListCompanyComponent,
-      },
-      {
-        path: 'create',
-        component: CreateCompanyComponent,
-      },
-      {
-        path: 'edit',
-        component: EditPaymentComponent,
-      },
-      {
-        path: 'show',
-        component: DetailPaymentComponent,
+        path: 'companies',
+        component: CompanyComponent,
+        children: [
+          {
+            path: '',
+            component: ListCompanyComponent,
+          },
+          {
+            path: 'create',
+            component: CreateCompanyComponent,
+          },
+          {
+            path: 'edit',
+            component: EditPaymentComponent,
+          },
+          {
+            path: 'show',
+            component: DetailPaymentComponent,
+          },
+        ],
       },
     ],
   },
