@@ -95,7 +95,7 @@ export class EditPaymentComponent {
         .pipe()
         .subscribe(() => {
           this.disableLoading = true;
-          this.router.navigate(['/']);
+          this.router.navigate(['/payments']);
         });
     }
   }

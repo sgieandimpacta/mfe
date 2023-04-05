@@ -77,7 +77,7 @@ export class CreatePaymentComponent implements OnInit {
         .pipe()
         .subscribe(() => {
           this.disableLoading = true;
-          this.router.navigate(['/']);
+          this.router.navigate(['/payments']);
         });
     }
   }
