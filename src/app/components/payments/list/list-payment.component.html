@@ -43,14 +43,14 @@
             <td>
               <div class="acoes">
                 <a
-                  [routerLink]="['/show']"
+                  [routerLink]="['/payments/show']"
                   [queryParams]="{ id: payment.id }"
                   title="Detalhar pagamento"
                 >
                   <i class="bi bi-eye"></i>
                 </a>
                 <a
-                  [routerLink]="['/edit']"
+                  [routerLink]="['/payments/edit']"
                   [queryParams]="{ id: payment.id }"
                   [class.disabled]="payment.status !== 0"
                   title="Editar pagamento"
