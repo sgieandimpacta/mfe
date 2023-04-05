@@ -1,0 +1,23 @@
+.menu {
+  font-size: 38px;
+  color: #6c757d;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.menu-list {
+  list-style: none;
+  margin-left: 0px;
+  padding-left: 0px;
+  text-transform: uppercase;
+}
+
+.menu-list > li {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: solid 1px #eeeeee;
+}
+
+.menu-list > li > a {
+  text-decoration: none;
+}

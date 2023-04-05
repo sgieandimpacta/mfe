@@ -1,8 +1,43 @@
+<div
+  class="offcanvas offcanvas-start"
+  data-bs-scroll="true"
+  data-bs-backdrop="false"
+  tabindex="-1"
+  id="offcanvasScrolling"
+  aria-labelledby="offcanvasScrollingLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">SGPA</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="menu-list">
+      <li>
+        <a [routerLink]="['/payments']" title="Listar Pagamentos">Pagamentos</a>
+      </li>
+      <li>
+        <a [routerLink]="['/companies']" title="Listar Empresas">Empresas</a>
+      </li>
+    </ul>
+  </div>
+</div>
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid justify-content-start">
-    <span class="navbar-brand mb-0 ml-5 h1">
-      Sistema Gestão de Pagamentos
+    <span class="">
+      <a
+        href=""
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasScrolling"
+        aria-controls="offcanvasScrolling"
+        ><i class="bi bi-list menu"></i
+      ></a>
     </span>
+    <span class="navbar-brand mb-0 h1"> Sistema Gestão de Pagamentos </span>
   </div>
 </nav>
 <payment-root></payment-root>
