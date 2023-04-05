@@ -11,6 +11,7 @@ export interface Payment {
   codigo_boleto: string;
   codigo_barras: string;
   chave_pix: string;
+  copiado: boolean;
 }
 
 export interface PaymentRequest {
