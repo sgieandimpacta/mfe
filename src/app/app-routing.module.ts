@@ -6,6 +6,8 @@ import { DetailPaymentComponent } from './components/payments/detail/detail-paym
 import { EditPaymentComponent } from './components/payments/edit/edit-payment.component';
 import { ListPaymentComponent } from './components/payments/list/list-payment.component';
 import { PaymentComponent } from './components/payments/payment.component';
+import { ListCompanyComponent } from './components/companies/list/list-company.component';
+import { CreateCompanyComponent } from './components/companies/create/create-company.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,24 @@ const routes: Routes = [
   {
     path: 'companies',
     component: CompanyComponent,
+    children: [
+      {
+        path: '',
+        component: ListCompanyComponent,
+      },
+      {
+        path: 'create',
+        component: CreateCompanyComponent,
+      },
+      {
+        path: 'edit',
+        component: EditPaymentComponent,
+      },
+      {
+        path: 'show',
+        component: DetailPaymentComponent,
+      },
+    ],
   },
   // {
   //   path: 'login',

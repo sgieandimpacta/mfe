@@ -16,6 +16,8 @@ import { DetailPaymentComponent } from './components/payments/detail/detail-paym
 import { EditPaymentComponent } from './components/payments/edit/edit-payment.component';
 import { ListPaymentComponent } from './components/payments/list/list-payment.component';
 import { PaymentComponent } from './components/payments/payment.component';
+import { CreateCompanyComponent } from './components/companies/create/create-company.component';
+import { ListCompanyComponent } from './components/companies/list/list-company.component';
 registerLocaleData(ptBr);
 
 const components = [
@@ -25,6 +27,8 @@ const components = [
   EditPaymentComponent,
   DetailPaymentComponent,
   CompanyComponent,
+  CreateCompanyComponent,
+  ListCompanyComponent,
 ];
 
 @NgModule({
