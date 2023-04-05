@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PaymentComponent } from './components/payments/payment.component';
+import { CompanyComponent } from './components/companies/company.component';
 import { CreatePaymentComponent } from './components/payments/create/create-payment.component';
-import { ListPaymentComponent } from './components/payments/list/list-payment.component';
-import { EditPaymentComponent } from './components/payments/edit/edit-payment.component';
 import { DetailPaymentComponent } from './components/payments/detail/detail-payment.component';
+import { EditPaymentComponent } from './components/payments/edit/edit-payment.component';
+import { ListPaymentComponent } from './components/payments/list/list-payment.component';
+import { PaymentComponent } from './components/payments/payment.component';
+import { ListCompanyComponent } from './components/companies/list/list-company.component';
+import { CreateCompanyComponent } from './components/companies/create/create-company.component';
 
 const routes: Routes = [
   {
@@ -12,20 +15,48 @@ const routes: Routes = [
     component: PaymentComponent,
     children: [
       {
-        path: '',
-        component: ListPaymentComponent,
+        path: 'payments',
+        component: PaymentComponent,
+        children: [
+          {
+            path: '',
+            component: ListPaymentComponent,
+          },
+          {
+            path: 'create',
+            component: CreatePaymentComponent,
+          },
+          {
+            path: 'edit',
+            component: EditPaymentComponent,
+          },
+          {
+            path: 'show',
+            component: DetailPaymentComponent,
+          },
+        ],
       },
       {
-        path: 'create',
-        component: CreatePaymentComponent,
-      },
-      {
-        path: 'edit',
-        component: EditPaymentComponent,
-      },
-      {
-        path: 'show',
-        component: DetailPaymentComponent,
+        path: 'companies',
+        component: CompanyComponent,
+        children: [
+          {
+            path: '',
+            component: ListCompanyComponent,
+          },
+          {
+            path: 'create',
+            component: CreateCompanyComponent,
+          },
+          {
+            path: 'edit',
+            component: EditPaymentComponent,
+          },
+          {
+            path: 'show',
+            component: DetailPaymentComponent,
+          },
+        ],
       },
     ],
   },

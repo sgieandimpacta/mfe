@@ -14,18 +14,26 @@
           <div class="row g-3">
             <div class="col-md-4">
               <label for="empresa" class="form-label">empresa</label>
-              <select
-                id="empresa"
-                class="form-select"
-                formControlName="empresa"
-              >
-                <option
-                  [value]="option.descricao_resumida"
-                  *ngFor="let option of companies"
+              <div class="input-group">
+                <select
+                  id="empresa"
+                  class="form-select"
+                  formControlName="empresa"
                 >
-                  {{ option.descricao_resumida | uppercase }}
-                </option>
-              </select>
+                  <option
+                    [value]="option.descricao_resumida"
+                    *ngFor="let option of companies"
+                  >
+                    {{ option.descricao_resumida | uppercase }}
+                  </option>
+                </select>
+                <a
+                  [routerLink]="['/companies']"
+                  class="input-group-append adicionar-empresa"
+                  title="adicionar empresa"
+                  ><i class="bi bi-plus-square"></i
+                ></a>
+              </div>
               <div
                 *ngIf="empresa.invalid && formDir.submitted"
                 class="invalid-feedback"

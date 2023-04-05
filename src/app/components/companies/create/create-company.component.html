@@ -1,0 +1,121 @@
+<div class="container">
+  <div class="card p-4 mt-5">
+    <form
+      [formGroup]="companyForm"
+      (ngSubmit)="registerCompany()"
+      #formDir="ngForm"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Cadastrar Empresa</h3>
+        </div>
+        <div class="modal-body mt-3">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="documento" class="form-label">documento</label>
+              <input
+                type="text"
+                class="form-control"
+                id="documento"
+                placeholder=""
+                formControlName="documento"
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="categoria" class="form-label">categoria</label>
+              <select
+                id="categoria"
+                class="form-select"
+                formControlName="categoria"
+              >
+                <option selected>medicamentos</option>
+                <option>sistema</option>
+                <option>impostos</option>
+                <option>limpeza</option>
+                <option>manutenção</option>
+                <option>funcionários</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="descricaoResumida" class="form-label"
+                >descrição resumida</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="descricaoResumida"
+                placeholder=""
+                formControlName="descricaoResumida"
+              />
+            </div>
+            <div class="col-md-8">
+              <label for="descricao" class="form-label">descrição</label>
+              <input
+                type="text"
+                class="form-control"
+                id="descricao"
+                placeholder=""
+                formControlName="descricao"
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="representante" class="form-label"
+                >representante</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="representante"
+                placeholder=""
+                formControlName="representante"
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="tipoContato" class="form-label">tipo contato</label>
+              <select
+                id="tipoContato"
+                class="form-select"
+                formControlName="tipoContato"
+              >
+                <option selected>celular</option>
+                <option>fixo</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="contato" class="form-label">contato</label>
+              <input
+                type="text"
+                class="form-control"
+                id="contato"
+                placeholder=""
+                formControlName="contato"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer mt-4">
+          <button
+            type="button"
+            class="btn btn-light margin-right-button-voltar"
+            [routerLink]="['/companies']"
+          >
+            Voltar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!companyForm.valid"
+          >
+            <span> {{ "Cadastrar" }} </span>
+            <span
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+              [hidden]="disableLoading"
+            ></span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

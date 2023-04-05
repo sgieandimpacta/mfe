@@ -1,0 +1,35 @@
+.title-acoes {
+  text-align: center;
+}
+
+.acoes {
+  display: flex;
+  justify-content: space-around;
+  cursor: pointer;
+  color: #0d6efd;
+}
+
+.acoes a {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.a-pagar {
+  background-color: rgb(255, 248, 224);
+}
+
+.agendado {
+  background-color: rgb(239, 249, 253);
+}
+
+.pago {
+  background-color: rgb(245, 255, 245);
+}
+
+.disabled {
+  color: currentColor;
+  opacity: 0.5;
+  text-decoration: none;
+  pointer-events: none;
+  cursor: not-allowed;
+}
