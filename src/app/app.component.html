@@ -18,10 +18,20 @@
   <div class="offcanvas-body">
     <ul class="menu-list">
       <li>
-        <a [routerLink]="['/payments']" title="Listar Pagamentos">Pagamentos</a>
+        <a
+          data-bs-dismiss="offcanvas"
+          [routerLink]="['/payments']"
+          title="Listar Pagamentos"
+          >Pagamentos</a
+        >
       </li>
       <li>
-        <a [routerLink]="['/companies']" title="Listar Empresas">Empresas</a>
+        <a
+          data-bs-dismiss="offcanvas"
+          [routerLink]="['/companies']"
+          title="Listar Empresas"
+          >Empresas</a
+        >
       </li>
     </ul>
   </div>
