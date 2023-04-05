@@ -83,7 +83,7 @@
                   [class.disabled]="payment.tipo === paymentForm.DINHEIRO"
                   value="click to copy"
                   title="Copiar chave para pagamento"
-                  ><i class="bi bi-clipboard"></i
+                  ><i class="bi" [ngClass]="setCopied(payment.copiado)"></i
                 ></a>
               </div>
             </td>

@@ -17,6 +17,7 @@ export class ListPaymentComponent implements OnInit {
   payments: Payment[] = [];
   status = PaymentStatus;
   paymentForm = PaymentForm;
+  copiado: string = 'bi-clipboard';
 
   constructor(private service: PaymentService) {}
 
@@ -67,11 +68,27 @@ export class ListPaymentComponent implements OnInit {
         : payment.chave_pix;
     navigator.clipboard
       .writeText(key)
-      .then()
+      .then(() => {
+        this.updatePaymentsAfterCopied(payment);
+      })
       .catch((e) => console.log(e));
+  }
+
+  updatePaymentsAfterCopied(payment: Payment): void {
+    this.payments = [
+      ...this.payments.map((p) =>
+        p.id === payment.id
+          ? { ...payment, copiado: true }
+          : { ...p, copiado: false }
+      ),
+    ];
   }
 
   setColorRow(status: number): string {
     return StatusRow[status];
+  }
+
+  setCopied(copiado: boolean): string {
+    return copiado ? 'bi-clipboard-check' : 'bi-clipboard';
   }
 }
