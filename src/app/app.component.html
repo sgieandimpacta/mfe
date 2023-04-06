@@ -16,23 +16,57 @@
     ></button>
   </div>
   <div class="offcanvas-body">
-    <ul class="menu-list">
-      <li>
-        <a
-          data-bs-dismiss="offcanvas"
-          [routerLink]="['/payments']"
-          title="Listar Pagamentos"
-          >Pagamentos</a
-        >
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <div class="parent-menu">
+          <a
+            data-bs-dismiss="offcanvas"
+            [routerLink]="['/payments']"
+            title="Listar Pagamentos"
+            >Pagamentos</a
+          >
+          <a data-bs-toggle="collapse" href="#collapsePayments">
+            <i class="bi bi-caret-down-fill"></i>
+          </a>
+        </div>
       </li>
-      <li>
-        <a
-          data-bs-dismiss="offcanvas"
-          [routerLink]="['/companies']"
-          title="Listar Empresas"
-          >Empresas</a
-        >
+      <div class="collapse submenu" id="collapsePayments">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <a
+              data-bs-dismiss="offcanvas"
+              [routerLink]="['/payments/create']"
+              title="Cadastrar Pagamento"
+              >Cadastrar Pagamento</a
+            >
+          </li>
+        </ul>
+      </div>
+      <li class="list-group-item">
+        <div class="parent-menu">
+          <a
+            data-bs-dismiss="offcanvas"
+            [routerLink]="['/companies']"
+            title="Listar Empresas"
+            >Empresas</a
+          >
+          <a data-bs-toggle="collapse" href="#collapseCompanies">
+            <i class="bi bi-caret-down-fill"></i>
+          </a>
+        </div>
       </li>
+      <div class="collapse submenu" id="collapseCompanies">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <a
+              data-bs-dismiss="offcanvas"
+              [routerLink]="['/companies/create']"
+              title="Cadastrar Empresa"
+              >Cadastrar Empresa</a
+            >
+          </li>
+        </ul>
+      </div>
     </ul>
   </div>
 </div>
