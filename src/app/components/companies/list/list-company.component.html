@@ -57,27 +57,6 @@
                 >
                   <i class="bi bi-trash"></i>
                 </a>
-                <a
-                  (click)="schedulePayment(payment)"
-                  [class.disabled]="payment.status !== 0"
-                  title="Agendar pagamento"
-                >
-                  <i class="bi bi-clock-history"></i>
-                </a>
-                <a
-                  (click)="makePayment(payment)"
-                  [class.disabled]="payment.status !== 1"
-                  title="Definir pagamento como pago"
-                >
-                  <i class="bi bi-credit-card"></i>
-                </a>
-                <a
-                  (click)="copyToClipboard(payment)"
-                  [class.disabled]="payment.tipo === paymentForm.DINHEIRO"
-                  value="click to copy"
-                  title="Copiar chave para pagamento"
-                  ><i class="bi bi-clipboard"></i
-                ></a>
               </div>
             </td> -->
           </tr>
