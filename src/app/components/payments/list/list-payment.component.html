@@ -28,7 +28,7 @@
             [ngClass]="setColorRow(payment.status)"
           >
             <!-- <td>{{ payment.id }}</td> -->
-            <td>{{ payment.valor | currency : "BRL" }}</td>
+            <td>{{ payment.valor | currency }}</td>
             <td>{{ payment.empresa | uppercase }}</td>
             <td>
               {{ payment.data_vencimento | date : "dd/MM/yyyy" : "+03:00" }}
