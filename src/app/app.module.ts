@@ -17,6 +17,7 @@ import { DetailPaymentComponent } from './components/payments/detail/detail-paym
 import { EditPaymentComponent } from './components/payments/edit/edit-payment.component';
 import { ListPaymentComponent } from './components/payments/list/list-payment.component';
 import { PaymentComponent } from './components/payments/payment.component';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 registerLocaleData(ptBr);
 
 const components = [
@@ -40,8 +41,11 @@ const components = [
     CurrencyMaskModule,
     BrowserAnimationsModule,
     NgbModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
   ],
   providers: [
+    provideNgxMask(),
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
   ],

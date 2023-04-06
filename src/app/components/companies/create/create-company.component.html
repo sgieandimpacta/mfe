@@ -19,6 +19,8 @@
                 id="documento"
                 placeholder=""
                 formControlName="documento"
+                mask="CPF_CNPJ"
+                [showMaskTyped]="true"
               />
             </div>
             <div class="col-md-4">
@@ -76,8 +78,8 @@
                 class="form-select"
                 formControlName="tipoContato"
               >
-                <option selected>celular</option>
-                <option>fixo</option>
+                <option selected value="celular">celular</option>
+                <option value="fixo">fixo</option>
               </select>
             </div>
             <div class="col-md-4">
@@ -88,6 +90,8 @@
                 id="contato"
                 placeholder=""
                 formControlName="contato"
+                [mask]="maskByPhoneType"
+                [showMaskTyped]="true"
               />
             </div>
           </div>
