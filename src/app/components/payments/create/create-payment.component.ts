@@ -55,7 +55,7 @@ export class CreatePaymentComponent implements OnInit {
         [this.fieldConditionallyRequiredValidator(PaymentForm.PIX)],
       ],
       dataVencimento: ['', Validators.required],
-      recorrencia: ['', Validators.required],
+      recorrencia: ['não', Validators.required],
       valor: ['', [Validators.required]],
     });
   }

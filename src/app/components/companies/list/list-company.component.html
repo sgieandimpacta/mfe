@@ -10,10 +10,8 @@
       <table class="mt-3 table">
         <thead>
           <tr>
-            <!-- <th>id</th> -->
             <th>documento</th>
             <th>desc. resumida</th>
-            <!-- <th>descricão</th> -->
             <th>representante</th>
             <th>contato</th>
             <th>categoria</th>
@@ -23,12 +21,15 @@
         </thead>
         <tbody *ngIf="companies.length; else naoExistemPagamentos">
           <tr *ngFor="let company of companies">
-            <!-- <td>{{ company.id }}</td> -->
-            <td>{{ company.documento }}</td>
+            <td>{{ company.documento | mask : "CPF_CNPJ" }}</td>
             <td>{{ company.descricao_resumida | uppercase }}</td>
-            <!-- <td>{{ company.descricao | uppercase }}</td> -->
             <td>{{ company.representante | uppercase }}</td>
-            <td>{{ company.contato }}</td>
+            <td>
+              {{
+                company.contato
+                  | mask : getmaskByPhoneType(company.tipo_contato)
+              }}
+            </td>
             <td>{{ company.categoria }}</td>
             <td>
               {{ company.data_cadastro | date : "dd/MM/yyyy HH:mm:ss" }}
