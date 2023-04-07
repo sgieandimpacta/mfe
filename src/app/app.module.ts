@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CompanyComponent } from './components/companies/company.component';
@@ -17,7 +18,7 @@ import { DetailPaymentComponent } from './components/payments/detail/detail-paym
 import { EditPaymentComponent } from './components/payments/edit/edit-payment.component';
 import { ListPaymentComponent } from './components/payments/list/list-payment.component';
 import { PaymentComponent } from './components/payments/payment.component';
-import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { NotificationComponent } from './shared/components/notification/notification.component';
 registerLocaleData(ptBr);
 
 const components = [
@@ -29,6 +30,7 @@ const components = [
   CompanyComponent,
   CreateCompanyComponent,
   ListCompanyComponent,
+  NotificationComponent,
 ];
 
 @NgModule({

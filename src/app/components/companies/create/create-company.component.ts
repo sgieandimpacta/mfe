@@ -1,7 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/company.service';
+import { NotificationService } from 'src/app/services/notification.service';
+import { ColorType } from 'src/app/shared/enums/color-type.enum';
 import {
   TipoContato,
   TipoContatoDescricao,
@@ -22,12 +25,13 @@ export class CreateCompanyComponent {
   constructor(
     private fb: FormBuilder,
     private service: CompanyService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
     this.createForm();
-    this.chanveMaskInputContact();
+    this.changeMaskInputContact();
   }
 
   private createForm(): void {
@@ -49,14 +53,35 @@ export class CreateCompanyComponent {
       this.service
         .addCompany(company)
         .pipe()
-        .subscribe(() => {
-          this.disableLoading = true;
-          this.router.navigate(['/companies']);
+        .subscribe({
+          next: () => this.notifySuccessAndNavigateToCompanies(),
+          error: (e) => this.notifyError(e),
+          complete: () => console.info('complete'),
         });
     }
   }
 
-  chanveMaskInputContact(): void {
+  private notifySuccessAndNavigateToCompanies() {
+    this.disableLoading = true;
+    this.notificationService.show({
+      message: 'Empresa cadastrada com sucesso',
+      show: true,
+      type: ColorType.SUCCESS,
+    });
+    this.router.navigate(['/companies']);
+  }
+
+  private notifyError(e: HttpErrorResponse) {
+    this.disableLoading = true;
+    this.notificationService.show({
+      message: 'Erro ao cadastrar empresa',
+      show: true,
+      type: ColorType.DANGER,
+    });
+    console.log(e);
+  }
+
+  changeMaskInputContact(): void {
     this.companyForm
       .get('tipoContato')
       ?.valueChanges.subscribe((selectedValue) => {
@@ -74,7 +99,7 @@ export class CreateCompanyComponent {
       descricao_resumida: this.companyForm.value.descricaoResumida,
       categoria: this.companyForm.value.categoria,
       tipo_contato: TipoContato[this.companyForm.value.tipoContato],
-      contato: this.companyForm.value.contato,
+      contato: stringByOnlyNumbers(this.companyForm.value.contato),
       representante: this.companyForm.value.representante,
     };
   }

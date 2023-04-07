@@ -1,0 +1,14 @@
+<ngb-toast
+  *ngFor="let notification of notificationService.notifications"
+  [autohide]="true"
+  [delay]="notification.delay || 2000"
+  class="text-white toast"
+  [ngClass]="notification.type"
+  (hiddden)="notificationService.remove(notification)"
+>
+  <div class="notification">
+    <span>{{ notification.message }}</span>
+    <span (click)="notificationService.remove(notification)"
+      ><i class="bi bi-x-lg i-close"></i
+    ></span></div
+></ngb-toast>

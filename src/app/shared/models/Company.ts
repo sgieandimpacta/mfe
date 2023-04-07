@@ -4,7 +4,7 @@ export interface Company {
   descricao: string;
   descricao_resumida: string;
   categoria: string;
-  tipo_contato: string;
+  tipo_contato: number;
   contato: string;
   representante: string;
   data_cadastro: string;

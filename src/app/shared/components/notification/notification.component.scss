@@ -1,0 +1,17 @@
+.toast {
+  position: absolute;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  z-index: 1200;
+  right: 0;
+  top: 0;
+}
+
+.notification {
+  display: flex;
+  justify-content: space-between;
+}
+
+.notification .i-close {
+  cursor: pointer;
+}
