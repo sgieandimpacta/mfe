@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { CompanyService } from 'src/app/services/company.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { ColorType } from 'src/app/shared/enums/color-type.enum';
+import { NotificationType } from 'src/app/shared/enums/color-type.enum';
 import { TipoContato } from 'src/app/shared/enums/tipo-contato';
 import { Company } from 'src/app/shared/models/Company';
 
@@ -40,27 +40,20 @@ export class ListCompanyComponent {
 
   deleteCompany(company: Company): void {
     this.service.removeCompany(company.id).subscribe({
-      next: () => this.notifySuccess(),
-      error: (e) => this.notifyError(e),
+      next: () => {
+        this.getCompanies();
+        this.notificationService.notify(
+          'Empresa removida com sucesso',
+          NotificationType.SUCCESS
+        );
+      },
+      error: (e) => {
+        this.notificationService.notify(
+          'Erro ao cadastrar empresa',
+          NotificationType.ERROR
+        );
+      },
       complete: () => console.info('complete'),
     });
-  }
-
-  private notifySuccess() {
-    this.getCompanies();
-    this.notificationService.show({
-      message: 'Empresa removida com sucesso',
-      show: true,
-      type: ColorType.SUCCESS,
-    });
-  }
-
-  private notifyError(e: HttpErrorResponse) {
-    this.notificationService.show({
-      message: 'Erro ao cadastrar empresa',
-      show: true,
-      type: ColorType.DANGER,
-    });
-    console.log(e);
   }
 }

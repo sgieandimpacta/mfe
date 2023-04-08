@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/company.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { ColorType } from 'src/app/shared/enums/color-type.enum';
+import { NotificationType } from 'src/app/shared/enums/color-type.enum';
 import {
   TipoContato,
   TipoContatoDescricao,
@@ -54,31 +54,25 @@ export class CreateCompanyComponent {
         .addCompany(company)
         .pipe()
         .subscribe({
-          next: () => this.notifySuccessAndNavigateToCompanies(),
-          error: (e) => this.notifyError(e),
+          next: () => {
+            this.disableLoading = true;
+            this.notificationService.notify(
+              'Empresa cadastada com sucesso',
+              NotificationType.SUCCESS
+            );
+            this.router.navigate(['/companies']);
+          },
+          error: (e) => {
+            this.disableLoading = true;
+            this.notificationService.notify(
+              'Erro ao cadastrar empresa',
+              NotificationType.ERROR
+            );
+            console.log(e);
+          },
           complete: () => console.info('complete'),
         });
     }
-  }
-
-  private notifySuccessAndNavigateToCompanies() {
-    this.disableLoading = true;
-    this.notificationService.show({
-      message: 'Empresa cadastrada com sucesso',
-      show: true,
-      type: ColorType.SUCCESS,
-    });
-    this.router.navigate(['/companies']);
-  }
-
-  private notifyError(e: HttpErrorResponse) {
-    this.disableLoading = true;
-    this.notificationService.show({
-      message: 'Erro ao cadastrar empresa',
-      show: true,
-      type: ColorType.DANGER,
-    });
-    console.log(e);
   }
 
   changeMaskInputContact(): void {

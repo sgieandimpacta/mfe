@@ -1,7 +1,7 @@
-export enum ColorType {
+export enum NotificationType {
   PRIMARY = 'bg-primary',
   SUCCESS = 'bg-success',
-  DANGER = 'bg-danger',
+  ERROR = 'bg-danger',
   WARNING = 'bg-warning',
   LIGTH = 'bg-light',
 }
