@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { CompanyService } from 'src/app/services/company.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { NotificationType } from 'src/app/shared/enums/color-type.enum';
+import { NotificationType } from 'src/app/shared/enums/notification-type.enum';
 import { TipoContato } from 'src/app/shared/enums/tipo-contato';
 import { Company } from 'src/app/shared/models/Company';
 
