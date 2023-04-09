@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/company.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { NotificationType } from 'src/app/shared/enums/color-type.enum';
+import { NotificationType } from 'src/app/shared/enums/notification-type.enum';
 import {
   TipoContato,
   TipoContatoDescricao,

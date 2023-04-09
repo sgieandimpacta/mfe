@@ -1,4 +1,4 @@
-import { NotificationType } from '../enums/color-type.enum';
+import { NotificationType } from '../enums/notification-type.enum';
 
 export interface Notification {
   show: boolean;
