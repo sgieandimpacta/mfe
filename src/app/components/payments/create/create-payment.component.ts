@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/company.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { conditionalValidator } from 'src/app/shared/directives/conditional-validators.directive';
 import { PaymentForm } from 'src/app/shared/enums/form-payments.enum';
+import { NotificationType } from 'src/app/shared/enums/notification-type.enum';
 import { Company } from 'src/app/shared/models/Company';
 import { PaymentRequest } from 'src/app/shared/models/Payment';
 import { getDateFormatByObject } from 'src/app/shared/utils/date-helper';
@@ -23,6 +25,7 @@ export class CreatePaymentComponent implements OnInit {
     private fb: FormBuilder,
     private service: PaymentService,
     private serviceCompany: CompanyService,
+    private notificationService: NotificationService,
     private router: Router
   ) {}
 
@@ -30,10 +33,22 @@ export class CreatePaymentComponent implements OnInit {
     this.serviceCompany
       .getCompanies()
       .pipe()
-      .subscribe((companies) => {
-        this.companies = companies;
-        this.createForm();
-        this.defineConditionalFieldsRequiredByPaymentForm();
+      .subscribe({
+        next: (companies) => {
+          this.disableLoading = true;
+          this.companies = companies;
+          this.createForm();
+          this.defineConditionalFieldsRequiredByPaymentForm();
+        },
+        error: (e) => {
+          this.disableLoading = true;
+          this.notificationService.notify(
+            'Erro ao consultar empresas',
+            NotificationType.ERROR
+          );
+          console.log(e);
+        },
+        complete: () => console.info('complete'),
       });
   }
 
@@ -75,9 +90,24 @@ export class CreatePaymentComponent implements OnInit {
       this.service
         .addPayment(pagamento)
         .pipe()
-        .subscribe(() => {
-          this.disableLoading = true;
-          this.router.navigate(['/payments']);
+        .subscribe({
+          next: () => {
+            this.disableLoading = true;
+            this.notificationService.notify(
+              'Pagamento cadastado com sucesso',
+              NotificationType.SUCCESS
+            );
+            this.router.navigate(['/payments']);
+          },
+          error: (e) => {
+            this.disableLoading = true;
+            this.notificationService.notify(
+              'Erro ao cadastrar pagamento',
+              NotificationType.ERROR
+            );
+            console.log(e);
+          },
+          complete: () => console.info('complete'),
         });
     }
   }
