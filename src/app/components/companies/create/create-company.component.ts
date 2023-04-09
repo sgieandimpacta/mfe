@@ -1,7 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/company.service';
+import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationType } from 'src/app/shared/enums/color-type.enum';
 import {
   TipoContato,
   TipoContatoDescricao,
@@ -22,12 +25,13 @@ export class CreateCompanyComponent {
   constructor(
     private fb: FormBuilder,
     private service: CompanyService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
     this.createForm();
-    this.chanveMaskInputContact();
+    this.changeMaskInputContact();
   }
 
   private createForm(): void {
@@ -49,14 +53,29 @@ export class CreateCompanyComponent {
       this.service
         .addCompany(company)
         .pipe()
-        .subscribe(() => {
-          this.disableLoading = true;
-          this.router.navigate(['/companies']);
+        .subscribe({
+          next: () => {
+            this.disableLoading = true;
+            this.notificationService.notify(
+              'Empresa cadastada com sucesso',
+              NotificationType.SUCCESS
+            );
+            this.router.navigate(['/companies']);
+          },
+          error: (e) => {
+            this.disableLoading = true;
+            this.notificationService.notify(
+              'Erro ao cadastrar empresa',
+              NotificationType.ERROR
+            );
+            console.log(e);
+          },
+          complete: () => console.info('complete'),
         });
     }
   }
 
-  chanveMaskInputContact(): void {
+  changeMaskInputContact(): void {
     this.companyForm
       .get('tipoContato')
       ?.valueChanges.subscribe((selectedValue) => {
@@ -74,7 +93,7 @@ export class CreateCompanyComponent {
       descricao_resumida: this.companyForm.value.descricaoResumida,
       categoria: this.companyForm.value.categoria,
       tipo_contato: TipoContato[this.companyForm.value.tipoContato],
-      contato: this.companyForm.value.contato,
+      contato: stringByOnlyNumbers(this.companyForm.value.contato),
       representante: this.companyForm.value.representante,
     };
   }

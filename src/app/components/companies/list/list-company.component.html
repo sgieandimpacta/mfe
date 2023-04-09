@@ -16,7 +16,7 @@
             <th>contato</th>
             <th>categoria</th>
             <th>cadastro</th>
-            <!-- <th class="title-acoes">ações</th> -->
+            <th class="title-acoes">ações</th>
           </tr>
         </thead>
         <tbody *ngIf="companies.length; else naoExistemPagamentos">
@@ -34,9 +34,9 @@
             <td>
               {{ company.data_cadastro | date : "dd/MM/yyyy HH:mm:ss" }}
             </td>
-            <!-- <td>
+            <td>
               <div class="acoes">
-                <a
+                <!-- <a
                   [routerLink]="['/show']"
                   [queryParams]="{ id: payment.id }"
                   title="Detalhar pagamento"
@@ -50,16 +50,12 @@
                   title="Editar pagamento"
                 >
                   <i class="bi bi-pencil"></i>
-                </a>
-                <a
-                  (click)="deletePayment(payment)"
-                  [class.disabled]="payment.status !== 0"
-                  title="Excluir pagamento"
-                >
+                </a> -->
+                <a (click)="deleteCompany(company)" title="Excluir pagamento">
                   <i class="bi bi-trash"></i>
                 </a>
               </div>
-            </td> -->
+            </td>
           </tr>
         </tbody>
       </table>
