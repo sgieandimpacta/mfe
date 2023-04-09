@@ -66,13 +66,13 @@ export class ListPaymentComponent implements OnInit {
         next: () => {
           this.getPayments();
           this.notificationService.notify(
-            'Status pago definido com sucesso',
+            'Pagamento efetuado com sucesso',
             NotificationType.SUCCESS
           );
         },
         error: (e) => {
           this.notificationService.notify(
-            'Erro ao alterar status do pagamento',
+            'Erro ao efetuar o pagamento',
             NotificationType.ERROR
           );
           console.info(e);

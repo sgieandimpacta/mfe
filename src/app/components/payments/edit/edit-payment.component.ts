@@ -3,9 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, switchMap } from 'rxjs';
 import { CompanyService } from 'src/app/services/company.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { conditionalValidator } from 'src/app/shared/directives/conditional-validators.directive';
 import { PaymentForm } from 'src/app/shared/enums/form-payments.enum';
+import { NotificationType } from 'src/app/shared/enums/notification-type.enum';
 import { Company } from 'src/app/shared/models/Company';
 import { Payment, PaymentRequest } from 'src/app/shared/models/Payment';
 import {
@@ -31,7 +33,8 @@ export class EditPaymentComponent {
     private service: PaymentService,
     private serviceCompany: CompanyService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -44,11 +47,21 @@ export class EditPaymentComponent {
           });
         })
       )
-      .subscribe((result) => {
-        this.payment = result.payment;
-        this.companies = result.companies;
-        this.createForm(result.payment);
-        this.defineConditionalFieldsRequiredByPaymentForm();
+      .subscribe({
+        next: (result) => {
+          this.payment = result.payment;
+          this.companies = result.companies;
+          this.createForm(result.payment);
+          this.defineConditionalFieldsRequiredByPaymentForm();
+        },
+        error: (e) => {
+          this.notificationService.notify(
+            'Erro ao carregar o pagamento',
+            NotificationType.ERROR
+          );
+          console.info(e);
+        },
+        complete: () => console.info('complete'),
       });
   }
 
@@ -93,9 +106,23 @@ export class EditPaymentComponent {
       this.service
         .updatePayment(id, payment)
         .pipe()
-        .subscribe(() => {
-          this.disableLoading = true;
-          this.router.navigate(['/payments']);
+        .subscribe({
+          next: () => {
+            this.disableLoading = true;
+            this.notificationService.notify(
+              'Pagamento atualizado com sucesso',
+              NotificationType.SUCCESS
+            );
+            this.router.navigate(['/payments']);
+          },
+          error: (e) => {
+            this.notificationService.notify(
+              'Erro ao atualizar o pagamento',
+              NotificationType.ERROR
+            );
+            console.info(e);
+          },
+          complete: () => console.info('complete'),
         });
     }
   }
