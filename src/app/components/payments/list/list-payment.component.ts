@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from 'src/app/services/notification.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { PaymentForm } from 'src/app/shared/enums/form-payments.enum';
+import { NotificationType } from 'src/app/shared/enums/notification-type.enum';
 import {
   PaymentStatus,
   StatusRow,
@@ -19,7 +21,10 @@ export class ListPaymentComponent implements OnInit {
   paymentForm = PaymentForm;
   copiado: string = 'bi-clipboard';
 
-  constructor(private service: PaymentService) {}
+  constructor(
+    private service: PaymentService,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.getPayments();
@@ -37,8 +42,20 @@ export class ListPaymentComponent implements OnInit {
   schedulePayment(payment: Payment): void {
     if (payment.status === 0)
       this.service.schedulePayment(payment.id).subscribe({
-        next: () => this.getPayments(),
-        error: (e) => console.error(e),
+        next: () => {
+          this.getPayments();
+          this.notificationService.notify(
+            'Pagamento agendado com sucesso',
+            NotificationType.SUCCESS
+          );
+        },
+        error: (e) => {
+          this.notificationService.notify(
+            'Erro ao agendar o pagamento',
+            NotificationType.ERROR
+          );
+          console.info(e);
+        },
         complete: () => console.info('complete'),
       });
   }
@@ -46,17 +63,41 @@ export class ListPaymentComponent implements OnInit {
   makePayment(payment: Payment): void {
     if (payment.status === 1)
       this.service.makePayment(payment.id).subscribe({
-        next: () => this.getPayments(),
-        error: (e) => console.error(e),
+        next: () => {
+          this.getPayments();
+          this.notificationService.notify(
+            'Pagamento efetuado com sucesso',
+            NotificationType.SUCCESS
+          );
+        },
+        error: (e) => {
+          this.notificationService.notify(
+            'Erro ao efetuar o pagamento',
+            NotificationType.ERROR
+          );
+          console.info(e);
+        },
         complete: () => console.info('complete'),
       });
   }
 
   deletePayment(payment: Payment): void {
     if (payment.status !== 2)
-      this.service.removePayment(payment.id).subscribe({
-        next: () => this.getPayments(),
-        error: (e) => console.error(e),
+      this.service.deletePayment(payment.id).subscribe({
+        next: () => {
+          this.getPayments();
+          this.notificationService.notify(
+            'Pagamento removido com sucesso',
+            NotificationType.SUCCESS
+          );
+        },
+        error: (e) => {
+          this.notificationService.notify(
+            'Erro ao excluir pagamento',
+            NotificationType.ERROR
+          );
+          console.log(e);
+        },
         complete: () => console.info('complete'),
       });
   }
@@ -74,7 +115,15 @@ export class ListPaymentComponent implements OnInit {
       .catch((e) => console.log(e));
   }
 
-  updatePaymentsAfterCopied(payment: Payment): void {
+  setColorRow(status: number): string {
+    return StatusRow[status];
+  }
+
+  setCopied(copiado: boolean): string {
+    return copiado ? 'bi-clipboard-check' : 'bi-clipboard';
+  }
+
+  private updatePaymentsAfterCopied(payment: Payment): void {
     this.payments = [
       ...this.payments.map((p) =>
         p.id === payment.id
@@ -82,13 +131,5 @@ export class ListPaymentComponent implements OnInit {
           : { ...p, copiado: false }
       ),
     ];
-  }
-
-  setColorRow(status: number): string {
-    return StatusRow[status];
-  }
-
-  setCopied(copiado: boolean): string {
-    return copiado ? 'bi-clipboard-check' : 'bi-clipboard';
   }
 }
