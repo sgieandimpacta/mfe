@@ -36,7 +36,7 @@ export class PaymentService {
     return this.http.put(`${this.url}/${id}`, { status: 2 });
   }
 
-  public removePayment(id: String): Observable<any> {
+  public deletePayment(id: String): Observable<any> {
     return this.http.delete(`${this.url}/${id}`);
   }
 }
