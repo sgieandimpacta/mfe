@@ -1,5 +1,5 @@
 import { registerLocaleData } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import ptBr from '@angular/common/locales/pt';
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -13,11 +13,14 @@ import { AppComponent } from './app.component';
 import { CompanyComponent } from './components/companies/company.component';
 import { CreateCompanyComponent } from './components/companies/create/create-company.component';
 import { ListCompanyComponent } from './components/companies/list/list-company.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
 import { CreatePaymentComponent } from './components/payments/create/create-payment.component';
 import { DetailPaymentComponent } from './components/payments/detail/detail-payment.component';
 import { EditPaymentComponent } from './components/payments/edit/edit-payment.component';
 import { ListPaymentComponent } from './components/payments/list/list-payment.component';
 import { PaymentComponent } from './components/payments/payment.component';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { NotificationComponent } from './shared/components/notification/notification.component';
 registerLocaleData(ptBr);
 
@@ -31,6 +34,8 @@ const components = [
   CreateCompanyComponent,
   ListCompanyComponent,
   NotificationComponent,
+  LoginComponent,
+  HomeComponent,
 ];
 
 @NgModule({
@@ -50,6 +55,7 @@ const components = [
     provideNgxMask(),
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
