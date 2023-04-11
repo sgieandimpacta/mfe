@@ -1,7 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 import { CompanyService } from 'src/app/services/company.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { NotificationType } from 'src/app/shared/enums/notification-type.enum';
@@ -52,7 +52,7 @@ export class CreateCompanyComponent {
       const company = this.castCompany();
       this.service
         .addCompany(company)
-        .pipe()
+        .pipe(take(1))
         .subscribe({
           next: () => {
             this.disableLoading = true;
@@ -60,7 +60,7 @@ export class CreateCompanyComponent {
               'Empresa cadastada com sucesso',
               NotificationType.SUCCESS
             );
-            this.router.navigate(['/companies']);
+            this.router.navigateByUrl('/companies');
           },
           error: (e) => {
             this.disableLoading = true;

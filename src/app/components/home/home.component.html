@@ -71,17 +71,32 @@
   </div>
 </div>
 <nav class="navbar navbar-light bg-light">
-  <div class="container-fluid justify-content-start">
-    <span class="">
-      <a
-        href=""
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasScrolling"
-        aria-controls="offcanvasScrolling"
-        ><i class="bi bi-list menu"></i
-      ></a>
-    </span>
-    <span class="navbar-brand mb-0 h1"> Sistema Gestão de Pagamentos </span>
+  <div class="container-fluid justify-content-between">
+    <div class="menu-brand">
+      <span>
+        <a
+          href=""
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasScrolling"
+          aria-controls="offcanvasScrolling"
+          ><i class="bi bi-list menu"></i
+        ></a>
+      </span>
+      <span class="navbar-brand mb-0 h1"> SGPA </span>
+    </div>
+    <div class="profile-logout">
+      <img
+        src="https://cdn4.iconfinder.com/data/icons/business-conceptual-part1-1/513/business-woman-512.png"
+        class="image-profile"
+        alt="..."
+      />
+      <span class="pipe"></span>
+      <span>
+        <a (click)="logout()" title="Sair">
+          <i class="bi bi-box-arrow-right"></i>
+        </a>
+      </span>
+    </div>
   </div>
 </nav>
 <payment-root></payment-root>

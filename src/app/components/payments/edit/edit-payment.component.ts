@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, switchMap } from 'rxjs';
+import { forkJoin, switchMap, take } from 'rxjs';
 import { CompanyService } from 'src/app/services/company.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { PaymentService } from 'src/app/services/payment.service';
@@ -105,7 +105,7 @@ export class EditPaymentComponent {
       const payment = this.castPayment();
       this.service
         .updatePayment(id, payment)
-        .pipe()
+        .pipe(take(1))
         .subscribe({
           next: () => {
             this.disableLoading = true;
@@ -113,7 +113,7 @@ export class EditPaymentComponent {
               'Pagamento atualizado com sucesso',
               NotificationType.SUCCESS
             );
-            this.router.navigate(['/payments']);
+            this.router.navigateByUrl('/payments');
           },
           error: (e) => {
             this.notificationService.notify(

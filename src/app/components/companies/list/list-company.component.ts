@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { take } from 'rxjs';
 import { CompanyService } from 'src/app/services/company.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { NotificationType } from 'src/app/shared/enums/notification-type.enum';
@@ -25,7 +26,7 @@ export class ListCompanyComponent {
   private getCompanies(): void {
     this.service
       .getCompanies()
-      .pipe()
+      .pipe(take(1))
       .subscribe((companies) => {
         this.companies = companies;
       });
@@ -38,21 +39,24 @@ export class ListCompanyComponent {
   }
 
   deleteCompany(company: Company): void {
-    this.service.removeCompany(company.id).subscribe({
-      next: () => {
-        this.getCompanies();
-        this.notificationService.notify(
-          'Empresa removida com sucesso',
-          NotificationType.SUCCESS
-        );
-      },
-      error: (e) => {
-        this.notificationService.notify(
-          'Erro ao cadastrar empresa',
-          NotificationType.ERROR
-        );
-      },
-      complete: () => console.info('complete'),
-    });
+    this.service
+      .removeCompany(company.id)
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          this.getCompanies();
+          this.notificationService.notify(
+            'Empresa removida com sucesso',
+            NotificationType.SUCCESS
+          );
+        },
+        error: (e) => {
+          this.notificationService.notify(
+            'Erro ao cadastrar empresa',
+            NotificationType.ERROR
+          );
+        },
+        complete: () => console.info('complete'),
+      });
   }
 }

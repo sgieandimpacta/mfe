@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { PaymentForm } from 'src/app/shared/enums/form-payments.enum';
@@ -33,7 +34,7 @@ export class ListPaymentComponent implements OnInit {
   getPayments(): void {
     this.service
       .getPayments()
-      .pipe()
+      .pipe(take(1))
       .subscribe((payments) => {
         this.payments = payments;
       });
@@ -41,65 +42,74 @@ export class ListPaymentComponent implements OnInit {
 
   schedulePayment(payment: Payment): void {
     if (payment.status === 0)
-      this.service.schedulePayment(payment.id).subscribe({
-        next: () => {
-          this.getPayments();
-          this.notificationService.notify(
-            'Pagamento agendado com sucesso',
-            NotificationType.SUCCESS
-          );
-        },
-        error: (e) => {
-          this.notificationService.notify(
-            'Erro ao agendar o pagamento',
-            NotificationType.ERROR
-          );
-          console.info(e);
-        },
-        complete: () => console.info('complete'),
-      });
+      this.service
+        .schedulePayment(payment.id)
+        .pipe(take(1))
+        .subscribe({
+          next: () => {
+            this.getPayments();
+            this.notificationService.notify(
+              'Pagamento agendado com sucesso',
+              NotificationType.SUCCESS
+            );
+          },
+          error: (e) => {
+            this.notificationService.notify(
+              'Erro ao agendar o pagamento',
+              NotificationType.ERROR
+            );
+            console.info(e);
+          },
+          complete: () => console.info('complete'),
+        });
   }
 
   makePayment(payment: Payment): void {
     if (payment.status === 1)
-      this.service.makePayment(payment.id).subscribe({
-        next: () => {
-          this.getPayments();
-          this.notificationService.notify(
-            'Pagamento efetuado com sucesso',
-            NotificationType.SUCCESS
-          );
-        },
-        error: (e) => {
-          this.notificationService.notify(
-            'Erro ao efetuar o pagamento',
-            NotificationType.ERROR
-          );
-          console.info(e);
-        },
-        complete: () => console.info('complete'),
-      });
+      this.service
+        .makePayment(payment.id)
+        .pipe(take(1))
+        .subscribe({
+          next: () => {
+            this.getPayments();
+            this.notificationService.notify(
+              'Pagamento efetuado com sucesso',
+              NotificationType.SUCCESS
+            );
+          },
+          error: (e) => {
+            this.notificationService.notify(
+              'Erro ao efetuar o pagamento',
+              NotificationType.ERROR
+            );
+            console.info(e);
+          },
+          complete: () => console.info('complete'),
+        });
   }
 
   deletePayment(payment: Payment): void {
     if (payment.status !== 2)
-      this.service.deletePayment(payment.id).subscribe({
-        next: () => {
-          this.getPayments();
-          this.notificationService.notify(
-            'Pagamento removido com sucesso',
-            NotificationType.SUCCESS
-          );
-        },
-        error: (e) => {
-          this.notificationService.notify(
-            'Erro ao excluir pagamento',
-            NotificationType.ERROR
-          );
-          console.log(e);
-        },
-        complete: () => console.info('complete'),
-      });
+      this.service
+        .deletePayment(payment.id)
+        .pipe(take(1))
+        .subscribe({
+          next: () => {
+            this.getPayments();
+            this.notificationService.notify(
+              'Pagamento removido com sucesso',
+              NotificationType.SUCCESS
+            );
+          },
+          error: (e) => {
+            this.notificationService.notify(
+              'Erro ao excluir pagamento',
+              NotificationType.ERROR
+            );
+            console.log(e);
+          },
+          complete: () => console.info('complete'),
+        });
   }
 
   copyToClipboard(payment: Payment) {
