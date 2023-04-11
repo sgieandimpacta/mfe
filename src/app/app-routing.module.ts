@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
 import { CompanyComponent } from './components/companies/company.component';
 import { CreateCompanyComponent } from './components/companies/create/create-company.component';
 import { ListCompanyComponent } from './components/companies/list/list-company.component';
@@ -15,58 +16,64 @@ import { AuthGuard } from './core/guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-    canActivate: [AuthGuard],
+    component: AppComponent,
     children: [
       {
-        path: 'payments',
-        component: PaymentComponent,
+        path: '',
+        component: HomeComponent,
+        canActivate: [AuthGuard],
         children: [
           {
-            path: '',
-            component: ListPaymentComponent,
+            path: 'payments',
+            component: PaymentComponent,
+            children: [
+              {
+                path: '',
+                component: ListPaymentComponent,
+              },
+              {
+                path: 'create',
+                component: CreatePaymentComponent,
+              },
+              {
+                path: 'edit',
+                component: EditPaymentComponent,
+              },
+              {
+                path: 'show',
+                component: DetailPaymentComponent,
+              },
+            ],
           },
           {
-            path: 'create',
-            component: CreatePaymentComponent,
-          },
-          {
-            path: 'edit',
-            component: EditPaymentComponent,
-          },
-          {
-            path: 'show',
-            component: DetailPaymentComponent,
+            path: 'companies',
+            component: CompanyComponent,
+            children: [
+              {
+                path: '',
+                component: ListCompanyComponent,
+              },
+              {
+                path: 'create',
+                component: CreateCompanyComponent,
+              },
+              {
+                path: 'edit',
+                component: EditPaymentComponent,
+              },
+              {
+                path: 'show',
+                component: DetailPaymentComponent,
+              },
+            ],
           },
         ],
       },
       {
-        path: 'companies',
-        component: CompanyComponent,
-        children: [
-          {
-            path: '',
-            component: ListCompanyComponent,
-          },
-          {
-            path: 'create',
-            component: CreateCompanyComponent,
-          },
-          {
-            path: 'edit',
-            component: EditPaymentComponent,
-          },
-          {
-            path: 'show',
-            component: DetailPaymentComponent,
-          },
-        ],
+        path: 'login',
+        component: LoginComponent,
       },
     ],
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
