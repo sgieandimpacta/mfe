@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 import { CompanyService } from 'src/app/services/company.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { PaymentService } from 'src/app/services/payment.service';
@@ -32,7 +33,7 @@ export class CreatePaymentComponent implements OnInit {
   ngOnInit(): void {
     this.serviceCompany
       .getCompanies()
-      .pipe()
+      .pipe(take(1))
       .subscribe({
         next: (companies) => {
           this.disableLoading = true;
@@ -89,7 +90,7 @@ export class CreatePaymentComponent implements OnInit {
       const pagamento = this.castPayment();
       this.service
         .addPayment(pagamento)
-        .pipe()
+        .pipe(take(1))
         .subscribe({
           next: () => {
             this.disableLoading = true;
@@ -97,7 +98,7 @@ export class CreatePaymentComponent implements OnInit {
               'Pagamento cadastado com sucesso',
               NotificationType.SUCCESS
             );
-            this.router.navigate(['/payments']);
+            this.router.navigateByUrl('/payments');
           },
           error: (e) => {
             this.disableLoading = true;
