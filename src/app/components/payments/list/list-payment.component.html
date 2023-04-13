@@ -91,6 +91,34 @@
         </tbody>
       </table>
     </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end" *ngIf="links">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li
+            class="page-item page"
+            [class.disabled]="links.previous_page_url === null || undefined"
+          >
+            <a
+              class="page-link"
+              (click)="goToPreviousPage(links.current_page - 1)"
+              >anterior</a
+            >
+          </li>
+          <li
+            *ngFor="let item of counter(links.last_page); let i = index"
+            [class.active]="i + 1 === links.current_page"
+            class="page-item page"
+          >
+            <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+          </li>
+          <li class="page-item page" [class.disabled]="!links.next_page_url">
+            <a class="page-link" (click)="goToNextPage(links.current_page + 1)"
+              >próxima</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>
 <ng-template #naoExistemPagamentos
