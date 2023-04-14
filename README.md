@@ -22,7 +22,7 @@ De que coisas você precisa para instalar o software e como instalá-lo?
 
 - npm 8.1.0
 - node 16.13.0
-- [angular cli](https://angular.io/cli/)
+- [angular cli](https://angular.io/cli/) 13.3.4
 
 ### 🔧 Instalação
 
