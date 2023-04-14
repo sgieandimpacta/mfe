@@ -1,27 +1,68 @@
-# Mfe
+# SGP - Front End
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.4.
+Esse serviço faz parte do projeto de gestão de pagamentos para a empresa Farmácioa Nossa Senhora da Conceição. O objetivo é facilitar a organização, gerenciamento e visibilidade dos pagamentos efetuados.
 
-## Development server
+- Iniciativa Impacta - Projeto de Conclusão de Curso
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🚀 Começando
 
-## Code scaffolding
+Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+O projeto está estruturado em três serviços:
 
-## Build
+- SGP - [front end](https://github.com/sgieandimpacta/mfe.git)
+- SGP - [back end](https://github.com/sgieandimpacta/api.git)
+- SGP - [Banco de Dados](https://github.com/sgieandimpacta/db.git)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+O README de cada um deles contém o passo a passo para que você consiga rodar o projeto por completo em sua máquina. Este traz as instruções para subida do serviço front end.
 
-## Running unit tests
+### 📋 Pré-requisitos
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+De que coisas você precisa para instalar o software e como instalá-lo?
 
-## Running end-to-end tests
+- npm 8.1.0
+- node 16.13.0
+- [angular cli](https://angular.io/cli/)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### 🔧 Instalação
 
-## Further help
+Caso ainda não tenha feito o clone do projeto, pode fazê-lo rodando o comando abaixo na pasta onde queira o projeto
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+git clone https://github.com/sgieandimpacta/mfe.git
+```
+
+Caso não tenha mudado o nome do projeto durante o clone, poderá entrar na pasta usando o comando:
+
+```
+cd mfe
+```
+
+Para realizar a subida basta rodar o comando:
+
+```
+ng serve
+```
+
+Você pode acessar o serviço através da url:
+
+```
+http://localhost:4200/
+```
+
+Uma tela como a seguinte deverá ser apresentada:
+
+[![login.png](https://i.postimg.cc/BvxzTPvG/login.png)](https://postimg.cc/67pzw3RH)
+
+## 🛠️ Construído com
+
+Mencione as ferramentas que você usou para criar seu projeto
+
+- [angular](https://angular.io/) - Deliver web apps with confidence.
+- [angular cli](https://angular.io/cli/) - The Angular CLI is a command-line interface.
+- [node](https://nodejs.org/en/) - Node.js® is an open-source, cross-platform JavaScript runtime environment.
+- [npm](https://www.npmjs.com/) - Build amazing things
+
+## ✒️ Autores
+
+- **Gieandes Silva** - [likedin](https://www.linkedin.com/in/gieandessilva)
