@@ -8,7 +8,7 @@ import {
   PaymentStatus,
   StatusRow,
 } from 'src/app/shared/enums/status-payments.enum';
-import { Payment } from 'src/app/shared/models/Payment';
+import { Meta, Payment } from 'src/app/shared/models/Payment';
 
 @Component({
   selector: 'app-list-payment',
@@ -18,6 +18,8 @@ import { Payment } from 'src/app/shared/models/Payment';
 export class ListPaymentComponent implements OnInit {
   title = 'mfe';
   payments: Payment[] = [];
+  links?: Meta;
+  counter = Array;
   status = PaymentStatus;
   paymentForm = PaymentForm;
   copiado: string = 'bi-clipboard';
@@ -31,12 +33,13 @@ export class ListPaymentComponent implements OnInit {
     this.getPayments();
   }
 
-  getPayments(): void {
+  getPayments(page: number = 1): void {
     this.service
-      .getPayments()
+      .getPayments(page)
       .pipe(take(1))
       .subscribe((payments) => {
-        this.payments = payments;
+        this.payments = payments.data;
+        this.links = payments.meta;
       });
   }
 
@@ -141,5 +144,17 @@ export class ListPaymentComponent implements OnInit {
           : { ...p, copiado: false }
       ),
     ];
+  }
+
+  goToPreviousPage(page: number): void {
+    this.getPayments(page);
+  }
+
+  goToPage(page: number): void {
+    this.getPayments(page);
+  }
+
+  goToNextPage(page: number): void {
+    this.getPayments(page);
   }
 }

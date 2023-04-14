@@ -25,3 +25,20 @@ export interface PaymentRequest {
   codigo_barras?: string;
   chave_pix?: string;
 }
+
+export interface PaymentResponse {
+  meta: Meta;
+  data: Payment[];
+}
+
+export interface Meta {
+  total: number;
+  per_page: number;
+  current_page: number;
+  last_page: number;
+  first_page: number;
+  first_page_url: string;
+  last_page_url: string;
+  next_page_url: string;
+  previous_page_url: string;
+}
