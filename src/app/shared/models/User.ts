@@ -1,5 +1,5 @@
 export interface User {
   email: string;
   password: string;
-  remember_me: boolean;
+  remember_me?: boolean;
 }
