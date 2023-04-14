@@ -13,7 +13,7 @@
             <!-- <th>id</th> -->
             <th>valor</th>
             <th>empresa</th>
-            <th>data vencimento</th>
+            <th>vencimento</th>
             <th>tipo</th>
             <th>status</th>
             <th>categoria</th>
@@ -38,7 +38,7 @@
             <td>{{ payment.categoria }}</td>
             <!-- <td>{{ payment.recorrencia }}</td> -->
             <td>
-              {{ payment.data_cadastro | date : "dd/MM/yyyy HH:mm:ss" }}
+              {{ payment.data_cadastro | date : "dd/MM/yyyy" }}
             </td>
             <td>
               <div class="acoes">
