@@ -12,6 +12,7 @@ import { EditPaymentComponent } from './components/payments/edit/edit-payment.co
 import { ListPaymentComponent } from './components/payments/list/list-payment.component';
 import { PaymentComponent } from './components/payments/payment.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { UserComponent } from './components/users/user.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
                 component: DetailPaymentComponent,
               },
             ],
+          },
+          {
+            path: 'users',
+            component: UserComponent,
           },
         ],
       },
