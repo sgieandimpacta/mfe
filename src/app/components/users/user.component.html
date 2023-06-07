@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <div class="card p-4 mt-5">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+      <h3>Usuários</h3>
+    </div>
+    <div class="table-responsive">
+      <table class="mt-3 table">
+        <thead>
+          <tr>
+            <th>imagem</th>
+            <th>id</th>
+            <th>e-mail</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="users.length; else naoExistemUsuarios">
+          <tr *ngFor="let user of users">
+            <td>
+              <img
+                src="https://cdn4.iconfinder.com/data/icons/business-conceptual-part1-1/513/business-woman-512.png"
+                class="image-profile"
+                alt="..."
+              />
+            </td>
+            <td>{{ user.id }}</td>
+            <td>{{ user.email | lowercase }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<ng-template #naoExistemUsuarios
+  ><tbody>
+    <tr class="text-center">
+      <td colspan="10">Não existem usuários cadastrados.</td>
+    </tr>
+  </tbody></ng-template
+>

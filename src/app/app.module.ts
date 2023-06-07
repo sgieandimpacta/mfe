@@ -28,6 +28,7 @@ import { ListPaymentComponent } from './components/payments/list/list-payment.co
 import { PaymentComponent } from './components/payments/payment.component';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { NotificationComponent } from './shared/components/notification/notification.component';
+import { UserComponent } from './components/users/user.component';
 registerLocaleData(ptBr);
 
 const components = [
@@ -42,6 +43,7 @@ const components = [
   NotificationComponent,
   LoginComponent,
   HomeComponent,
+  UserComponent,
 ];
 
 @NgModule({
